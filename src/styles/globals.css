@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=BioRhyme:wght@200..800&family=Slabo+27px&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-BioRhyme: "BioRhyme";
+    --font-BioRhyme--font-variation-settings: 400 800;
 }

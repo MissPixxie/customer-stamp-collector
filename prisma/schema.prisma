@@ -18,3 +18,29 @@ model Post {
 
     @@index([name])
 }
+
+model Customer {
+    id         Int         @id @default(autoincrement())
+    medlemsNr  Int         @unique
+    stampCards StampCard[]
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @updatedAt
+}
+
+model StampCard {
+    id         Int      @id @default(autoincrement())
+    customer   Customer @relation(fields: [customerid], references: [id])
+    customerid Int
+    stamps     Stamp[]
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Stamp {
+    id          Int       @id @default(autoincrement())
+    name        String
+    price       String
+    StampCard   StampCard @relation(fields: [StampCardid], references: [id])
+    StampCardid Int
+    createdAt   DateTime  @default(now())
+}

@@ -3,6 +3,9 @@ import {
   createCallerFactory,
   createTRPCRouter,
 } from "stampCollector/server/api/trpc";
+import { customerRouter } from "./routers/customer";
+import { stampCardRouter } from "./routers/stampCard";
+import { stampRouter } from "./routers/stamp";
 
 /**
  * This is the primary router for your server.
@@ -11,6 +14,9 @@ import {
  */
 export const appRouter = createTRPCRouter({
   post: postRouter,
+  customer: customerRouter,
+  stampCard: stampCardRouter,
+  stamp: stampRouter,
 });
 
 // export type definition of API
