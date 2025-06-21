@@ -4,13 +4,25 @@ import { useState } from "react";
 
 import { api } from "stampCollector/trpc/react";
 import { CustomerCard } from "./customerCard";
+import type { StampCard } from "@prisma/client";
+import { useSelectedMember } from "../memberContextProvider";
+
+type CustomerProps = {
+  id: number;
+  medlemsNr: number;
+  stampCards: StampCard[];
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export function ListCustomers() {
   const [listAllCustomers] = api.customer.listAllCustomers.useSuspenseQuery();
-  const [selectedCustomer, setSelectedCustomer] = useState<number | null>(null);
+  const [selectedCustomer, setSelectedCustomer] =
+    useState<CustomerProps | null>(null);
+  const { selectedMember, setSelectedMember } = useSelectedMember();
 
   return (
-    <div>
+    <div className="flex flex-row gap-5">
       <div className="flex flex-col gap-x-2 gap-y-2.5 rounded-md bg-white">
         {listAllCustomers && listAllCustomers.length > 0 ? (
           <div>
@@ -21,7 +33,7 @@ export function ListCustomers() {
               <div
                 key={customer.id}
                 onClick={() => {
-                  setSelectedCustomer(customer.id);
+                  setSelectedMember(customer);
                 }}
               >
                 <CustomerCard key={customer.id} customer={customer} />
@@ -32,13 +44,13 @@ export function ListCustomers() {
           <p>You have no customers yet.</p>
         )}
       </div>
-      <div>
+      {/* <div>
         {selectedCustomer ? (
-          <div>Vald kund: {selectedCustomer}</div>
+          <CustomerCard key={selectedCustomer.id} customer={selectedCustomer} />
         ) : (
-          <div>Ingen kund vals</div>
+          <div>Ingen kund vald</div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

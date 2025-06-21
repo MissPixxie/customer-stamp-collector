@@ -43,7 +43,7 @@ export function CreateCustomer() {
 
     if (!getCustomer?.medlemsNr) {
       createCustomer.mutate({ medlemsNr: medlemsNrInt });
-      createStampCard.mutate({ medlemsNrInt });
+      createStampCard.mutate({ customerId: medlemsNrInt });
     } else {
       setMessage("Ett oväntat fel inträffade. Försök igen.");
     }

@@ -14,11 +14,21 @@ export const stampRouter = createTRPCRouter({
   }),
 
   create: publicProcedure
-    .input(z.object({ stampCardId: z.number().min(1) }))
+    .input(
+      z.object({
+        stampCardId: z.number().min(1),
+        stampBrand: z.string().min(1),
+        stampPrice: z.string().min(1),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       return ctx.db.stamp.create({
         data: {
-          StampCardid: input.stampCardId,
+          name: input.stampBrand,
+          price: input.stampPrice,
+          StampCard: {
+            connect: { id: input.stampCardId },
+          },
         },
       });
     }),
