@@ -15,9 +15,6 @@ export function StampCardInFocus({ stampCard }: { stampCard: StampCard }) {
             {stampCard.id}
           </h1>
           <h1 className="text-center text-lg font-bold text-white dark:text-black">
-            {stampCard.customerid}
-          </h1>
-          <h1 className="text-center text-lg font-bold text-white dark:text-black">
             {new Date(stampCard.createdAt).toLocaleString()}
           </h1>
         </div>

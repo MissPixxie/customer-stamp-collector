@@ -30,9 +30,6 @@ export default async function Home() {
               <div className="h-full w-full max-w-xs rounded-2xl bg-amber-300">
                 <MemberInFocus />
               </div>
-              <h1 className="text-white dark:text-black">
-                Stämpelkort i fokus
-              </h1>
             </div>
             <div className="drop-shadow-xl/50">
               <CreateCustomer />

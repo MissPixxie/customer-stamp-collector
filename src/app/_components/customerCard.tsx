@@ -22,7 +22,7 @@ export function CustomerCard({ customer }: CustomerProps) {
   );
 
   return (
-    <div className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25">
+    <div className="m-2 flex max-w-lg transform flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25 transition-transform duration-200 ease-in-out hover:scale-105">
       <div className="flex grow flex-row justify-between">
         <p className="truncat">Medlemsnummer: {customer.medlemsNr}</p>
         <p>
@@ -33,7 +33,7 @@ export function CustomerCard({ customer }: CustomerProps) {
       <div className="flex grow flex-col">
         <h4 className="mt-4 text-lg font-semibold">Stämpelkort:</h4>
         {customer.stampCards.length > 0 ? (
-          <ul className="list-disc pl-5">
+          <ul className="cursor-pointer list-disc pl-5">
             {customer.stampCards.map((stampcard) => (
               <li key={stampcard.id}>Stämpelkort ID: {stampcard.id}</li>
             ))}
