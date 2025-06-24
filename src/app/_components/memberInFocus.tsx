@@ -30,9 +30,9 @@ export function MemberInFocus() {
             </div>
             <div className="flex grow flex-col">
               <h4 className="mt-4 text-lg font-semibold">Stämpelkort:</h4>
-              {selectedMember.stampCards!.length > 0 ? (
+              {selectedMember ? (
                 <ul className="list-disc pl-5">
-                  {selectedMember.stampCards!.map((stampcard) => (
+                  {selectedMember.stampCards.map((stampcard) => (
                     <li
                       className="cursor-pointer hover:bg-black/10"
                       key={`stampcard-${stampcard.id}`}
@@ -57,7 +57,7 @@ export function MemberInFocus() {
       <div>
         {selectedCard ? (
           <StampCardInFocus
-            key={`stampcard-${selectedCard.id}`}
+            key={`selectedCard-${selectedCard.id}`}
             stampCard={selectedCard}
           />
         ) : (

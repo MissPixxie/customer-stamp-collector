@@ -7,9 +7,9 @@ import { api } from "stampCollector/trpc/react";
 
 type StampProps = {
   stamp: {
-    stampId?: number;
+    id: number;
     name: string;
-    price: number;
+    price: string;
   };
 };
 export function StampDetails({ stamp }: StampProps) {
