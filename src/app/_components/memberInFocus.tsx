@@ -10,7 +10,7 @@ export function MemberInFocus() {
   const { selectedMember } = useSelectedMember();
   const [selectedCard, setSelectedCard] = useState<StampCard | null>(null);
 
-  console.log("memberinfocus");
+  console.log("memberinfocus", selectedMember?.stampCards);
   return (
     <div>
       <div>
@@ -35,7 +35,7 @@ export function MemberInFocus() {
                   {selectedMember.stampCards!.map((stampcard) => (
                     <li
                       className="cursor-pointer hover:bg-black/10"
-                      key={stampcard.id}
+                      key={`stampcard-${stampcard.id}`}
                       onClick={() => {
                         setSelectedCard(stampcard);
                       }}
@@ -56,7 +56,10 @@ export function MemberInFocus() {
       </div>
       <div>
         {selectedCard ? (
-          <StampCardInFocus stampCard={selectedCard} />
+          <StampCardInFocus
+            key={`stampcard-${selectedCard.id}`}
+            stampCard={selectedCard}
+          />
         ) : (
           <p>Inga stämpelkort hittades</p>
         )}

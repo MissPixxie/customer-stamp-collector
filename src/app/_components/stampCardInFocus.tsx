@@ -16,21 +16,22 @@ export function StampCardInFocus({ stampCard }: { stampCard: StampCard }) {
         <div>
           <p className="truncat">StämpelkortNr: {stampCard.id}</p>
           {/* <CardDetails card={stampCard} /> */}
-          {stampCard.stamps!.length > 0 ? (
-            <ul className="cursor-pointer list-disc pl-5">
-              {stampCard.stamps!.map((stamps) => (
-                <>
-                  <StampDetails stampId={stamps} />
-                </>
-              ))}
-            </ul>
-          ) : (
-            <p>Inga stämplar hittades..</p>
-          )}
+          <div>
+            {stampCard.stamps!.length > 0 ? (
+              <div className="flex cursor-pointer list-disc flex-row justify-between bg-green-200 pl-5">
+                {stampCard.stamps!.map((stamps) => (
+                  <>
+                    <StampDetails stampId={stamps} />
+                  </>
+                ))}
+              </div>
+            ) : (
+              <p>Inga stämplar hittades..</p>
+            )}
+          </div>
           <h1 className="text-center text-lg font-bold text-white dark:text-black">
             {new Date(stampCard.createdAt).toLocaleString()}
           </h1>
-          <CreateStamp stampCardId={stampCard.id} />
         </div>
       ) : (
         <h1 className="text-center text-lg font-bold text-white dark:text-black"></h1>

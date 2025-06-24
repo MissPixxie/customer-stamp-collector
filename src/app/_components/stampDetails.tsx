@@ -5,14 +5,21 @@ import type { Stamp } from "@prisma/client";
 
 import { api } from "stampCollector/trpc/react";
 
-export function StampDetails({ stampId }: { stampId: Stamp }) {
-  console.log("stampDetails", stampId.name);
+type StampProps = {
+  stamp: {
+    stampId?: number;
+    name: string;
+    price: number;
+  };
+};
+export function StampDetails({ stamp }: StampProps) {
+  console.log("stampDetails", stamp.name);
   return (
     <div>
-      {stampId ? (
+      {stamp ? (
         <div className="h-15 w-15 rounded-full bg-blue-500">
-          <p className="text-xs text-white dark:text-black">{stampId.name}</p>
-          <p>{stampId.price}:-</p>
+          <p className="text-xs text-white dark:text-black">{stamp.name}</p>
+          <p>{stamp.price}:-</p>
         </div>
       ) : (
         <p></p>
