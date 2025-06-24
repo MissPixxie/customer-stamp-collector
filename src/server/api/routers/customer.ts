@@ -14,17 +14,21 @@ export const customerRouter = createTRPCRouter({
         },
       });
 
-      return customer ?? null;
+      return customer;
     }),
 
   listAllCustomers: publicProcedure.query(async ({ ctx }) => {
     const customers = await ctx.db.customer.findMany({
       include: {
-        stampCards: true,
+        stampCards: {
+          include: {
+            stamps: true,
+          },
+        },
       },
     });
-
-    return customers ?? null;
+    console.log("customers from db: ", customers);
+    return customers;
   }),
 
   create: publicProcedure

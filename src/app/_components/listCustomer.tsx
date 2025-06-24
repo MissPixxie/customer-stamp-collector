@@ -7,19 +7,31 @@ import { CustomerCard } from "./customerCard";
 import type { StampCard } from "@prisma/client";
 import { useSelectedMember } from "../memberContextProvider";
 
-type CustomerProps = {
-  id: number;
-  medlemsNr: number;
-  stampCards: StampCard[];
-  createdAt: Date;
-  updatedAt: Date;
-};
+// type CustomerProps = {
+//   customer: {
+//     id: number;
+//     medlemsNr: number;
+//     createdAt: Date;
+//     updatedAt: Date;
+//     stampCards: {
+//       id: number;
+//       customerid: number;
+//       createdAt: Date;
+//       updatedAt: Date;
+//       stamps: {
+//         id: number;
+//         name: string;
+//         price: string;
+//         createdAt: Date;
+//         updatedAt: Date;
+//       }[];
+//     }[];
+//   };
+// };
 
 export function ListCustomers() {
   const [listAllCustomers] = api.customer.listAllCustomers.useSuspenseQuery();
-  const [selectedCustomer, setSelectedCustomer] =
-    useState<CustomerProps | null>(null);
-  const { selectedMember, setSelectedMember } = useSelectedMember();
+  const { setSelectedMember } = useSelectedMember();
 
   return (
     <div className="flex flex-row gap-5">
@@ -44,13 +56,6 @@ export function ListCustomers() {
           <p>You have no customers yet.</p>
         )}
       </div>
-      {/* <div>
-        {selectedCustomer ? (
-          <CustomerCard key={selectedCustomer.id} customer={selectedCustomer} />
-        ) : (
-          <div>Ingen kund vald</div>
-        )}
-      </div> */}
     </div>
   );
 }

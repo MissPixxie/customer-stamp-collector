@@ -10,6 +10,7 @@ export function MemberInFocus() {
   const { selectedMember } = useSelectedMember();
   const [selectedCard, setSelectedCard] = useState<StampCard | null>(null);
 
+  console.log("memberinfocus");
   return (
     <div>
       <div>
@@ -29,9 +30,9 @@ export function MemberInFocus() {
             </div>
             <div className="flex grow flex-col">
               <h4 className="mt-4 text-lg font-semibold">Stämpelkort:</h4>
-              {selectedMember.stampCards.length > 0 ? (
+              {selectedMember.stampCards!.length > 0 ? (
                 <ul className="list-disc pl-5">
-                  {selectedMember.stampCards.map((stampcard) => (
+                  {selectedMember.stampCards!.map((stampcard) => (
                     <li
                       className="cursor-pointer hover:bg-black/10"
                       key={stampcard.id}

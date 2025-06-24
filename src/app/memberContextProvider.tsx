@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { StampCard } from "@prisma/client";
+import type { Customer } from "@prisma/client";
 
 export type Member = {
   id: number;
@@ -8,6 +8,24 @@ export type Member = {
   stampCards: StampCard[];
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type StampCard = {
+  id: number;
+  customerid: number;
+  customer: Customer; // Relationen till Customer
+  stamps: Stamp[]; // Relationen till Stamp
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Stamp = {
+  id: number;
+  name: string;
+  price: string;
+  stampCardId: number;
+  stampCard: StampCard; // Relationen till StampCard
+  createdAt: Date;
 };
 
 type SelectedMemberContextType = {

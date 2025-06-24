@@ -5,14 +5,6 @@ import {
 } from "stampCollector/server/api/trpc";
 
 export const stampCardRouter = createTRPCRouter({
-  getLatest: publicProcedure.query(async ({ ctx }) => {
-    const stampCard = await ctx.db.stampCard.findFirst({
-      orderBy: { createdAt: "desc" },
-    });
-
-    return stampCard ?? null;
-  }),
-
   create: publicProcedure
     .input(z.object({ customerId: z.number().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -32,7 +24,11 @@ export const stampCardRouter = createTRPCRouter({
         where: {
           customerid: input.customerId,
         },
+        include: {
+          stamps: true,
+        },
       });
+      console.log("stampCards from db:", stampCards);
       return stampCards;
     }),
 
