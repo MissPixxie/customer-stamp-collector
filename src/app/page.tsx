@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { LatestPost } from "stampCollector/app/_components/post";
 import { api, HydrateClient } from "stampCollector/trpc/server";
-import { CreateCustomer } from "./_components/createCustomer";
+import { CreateMember } from "./_components/createMember";
 import SearchBar from "./_components/search";
-import { ListCustomers } from "./_components/listCustomer";
+import { ListMembers } from "./_components/listMembers";
 import {
   SelectedMemberProvider,
   useSelectedMember,
@@ -28,7 +28,7 @@ export default async function Home() {
               {/* <LatestPost /> */}
               <div className="flex w-lg flex-col drop-shadow-xl/50">
                 <SearchBar />
-                <ListCustomers />
+                <ListMembers />
               </div>
               <div className="flex w-full max-w-lg flex-col gap-5 bg-amber-600">
                 <div className="h-full w-full max-w-xs rounded-2xl bg-amber-300">
@@ -36,7 +36,7 @@ export default async function Home() {
                 </div>
               </div>
               <div className="drop-shadow-xl/50">
-                <CreateCustomer />
+                <CreateMember />
               </div>
             </div>
           </main>

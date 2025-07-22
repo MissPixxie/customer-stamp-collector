@@ -1,10 +1,12 @@
 "use client"; // Se till att denna fil är en klientkomponent
 
+import type { Stamp } from "@prisma/client";
+//import type { Stamp } from "./memberContextProvider";
 import { createContext, useContext, useState, type ReactNode } from "react";
 
 type ModalContextType = {
   isModalOpen: boolean;
-  openModal: () => void;
+  openModal: (stamp: Stamp) => void;
   closeModal: () => void;
 };
 

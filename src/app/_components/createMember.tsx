@@ -4,48 +4,48 @@ import { useState } from "react";
 
 import { api } from "stampCollector/trpc/react";
 
-export function CreateCustomer() {
-  const [getCustomer] = api.customer.getCustomer.useSuspenseQuery();
+export function CreateMember() {
+  const [getMember] = api.member.getMember.useSuspenseQuery();
 
   const utils = api.useUtils();
-  const [medlemsNr, setMedlemsNr] = useState("");
+  const [membersNr, setMembersNr] = useState("");
   const [message, setMessage] = useState<string>("");
 
-  const createCustomer = api.customer.create.useMutation({
+  const createMember = api.member.create.useMutation({
     onSuccess: async () => {
-      await utils.customer.invalidate();
-      setMedlemsNr("");
-      setMessage("Kunden har lagts till korrekt!");
+      await utils.member.invalidate();
+      setMembersNr("");
+      setMessage("Member has been added successfully!");
     },
     onError: (error) => {
-      setMessage(`Fel vid kundtillägg: ${error.message}`);
+      setMessage(`Error while adding member: ${error.message}`);
     },
   });
   const createStampCard = api.stampCard.create.useMutation({
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
-      setMessage("Stämpelkortet har lagts till korrekt!");
+      setMessage("Stampcard has been added successfully!");
     },
     onError: (error) => {
-      setMessage(`Fel vid tillägg: ${error.message}`);
+      setMessage(`Error while adding stampcard: ${error.message}`);
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const medlemsNrInt = parseInt(medlemsNr, 10);
+    const membersNrInt = parseInt(membersNr, 10);
 
-    if (isNaN(medlemsNrInt)) {
-      setMessage("Medlemsnummer är ogiltigt");
+    if (isNaN(membersNrInt)) {
+      setMessage("MembersNr is invalid");
       return;
     }
 
-    if (!getCustomer?.medlemsNr) {
-      createCustomer.mutate({ medlemsNr: medlemsNrInt });
-      createStampCard.mutate({ customerId: medlemsNrInt });
+    if (!getMember?.membersNr) {
+      createMember.mutate({ membersNr: membersNrInt });
+      createStampCard.mutate({ membersNr: membersNrInt });
     } else {
-      setMessage("Ett oväntat fel inträffade. Försök igen.");
+      setMessage("An unexpected error occurrd. Try again.");
     }
   };
 
@@ -58,16 +58,16 @@ export function CreateCustomer() {
         <input
           type="text"
           placeholder="medlemsnummer"
-          value={medlemsNr}
-          onChange={(e) => setMedlemsNr(e.target.value)}
+          value={membersNr}
+          onChange={(e) => setMembersNr(e.target.value)}
           className="w-full rounded-full bg-white/50 px-4 py-2 text-white dark:text-black"
         />
         <button
           type="submit"
           className="max-w-50 self-center rounded-4xl bg-white/50 px-10 py-3 font-semibold text-white transition hover:bg-white/20 dark:text-black"
-          disabled={createCustomer.isPending}
+          disabled={createMember.isPending}
         >
-          {createCustomer.isPending ? "Skapar kund..." : "Skapa kund"}
+          {createMember.isPending ? "Skapar kund..." : "Skapa kund"}
         </button>
       </form>
       <button className="max-w-50 rounded-4xl bg-green-700/50 px-10 py-3 text-sm font-normal text-white transition hover:bg-green-700/30 dark:text-black">

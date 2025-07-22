@@ -19,28 +19,28 @@ model Post {
     @@index([name])
 }
 
-model Customer {
+model Member {
     id         Int         @id @default(autoincrement())
-    medlemsNr  Int         @unique
+    membersNr  Int         @unique
     stampCards StampCard[]
     createdAt  DateTime    @default(now())
     updatedAt  DateTime    @updatedAt
 }
 
 model StampCard {
-    id         Int      @id @default(autoincrement())
-    customer   Customer @relation(fields: [customerid], references: [id])
-    customerid Int
-    stamps     Stamp[]
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+    id        Int      @id @default(autoincrement())
+    member    Member   @relation(fields: [membersNr], references: [id])
+    membersNr Int
+    stamps    Stamp[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Stamp {
     id          Int       @id @default(autoincrement())
     name        String
     price       String
-    StampCard   StampCard @relation(fields: [StampCardid], references: [id])
-    StampCardid Int
+    stampCard   StampCard @relation(fields: [stampCardid], references: [id])
+    stampCardid Int
     createdAt   DateTime  @default(now())
 }

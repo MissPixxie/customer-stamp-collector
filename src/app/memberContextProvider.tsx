@@ -1,36 +1,56 @@
 "use client";
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { Customer } from "@prisma/client";
+import type { Member } from "@prisma/client";
+import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
 
-export type Member = {
-  id: number;
-  medlemsNr: number;
-  stampCards: StampCard[];
-  createdAt: Date;
-  updatedAt: Date;
-};
+// export type Member = {
+//   id: number;
+//   medlemsNr: number;
+//   stampCards: {
+//     id: number;
+//     customerid: number;
+//     customer: Customer; // Relationen till Customer
+//     stamps: {
+//       name: string;
+//       id: number;
+//       price: string;
+//       StampCardid: number;
+//       createdAt: Date;
+//     }[];
+//     createdAt: Date;
+//     updatedAt: Date;
+//   }[];
+//   createdAt: Date;
+//   updatedAt: Date;
+// };
 
-export type StampCard = {
-  id: number;
-  customerid: number;
-  customer: Customer; // Relationen till Customer
-  stamps: Stamp[]; // Relationen till Stamp
-  createdAt: Date;
-  updatedAt: Date;
-};
+// export type StampCard = {
+//   id: number;
+//   customerid: number;
+//   customer: Customer;
+//   stamps: {
+//     name: string;
+//     id: number;
+//     price: string;
+//     StampCardid: number;
+//     createdAt: Date;
+//   }[];
+//   createdAt: Date;
+//   updatedAt: Date;
+// };
 
-export type Stamp = {
-  id: number;
-  name: string;
-  price: string;
-  stampCardId: number;
-  stampCard: StampCard; // Relationen till StampCard
-  createdAt: Date;
-};
+// export type Stamp = {
+//   id: number;
+//   name: string;
+//   price: string;
+//   stampCardid: number;
+//   stampCard: StampCard; // Relationen till StampCard
+//   createdAt: Date;
+// };
 
 type SelectedMemberContextType = {
-  selectedMember: Member | null;
-  setSelectedMember: (member: Member | null) => void;
+  selectedMember: MemberWithCardsAndStamps | null;
+  setSelectedMember: (member: MemberWithCardsAndStamps | null) => void;
 };
 
 export const SelectedMemberContext = createContext<
@@ -42,7 +62,8 @@ export const SelectedMemberProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const [selectedMember, setSelectedMember] =
+    useState<MemberWithCardsAndStamps | null>(null);
 
   return (
     <SelectedMemberContext.Provider

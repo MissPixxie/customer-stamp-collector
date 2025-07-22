@@ -1,29 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useModal } from "../modalContext";
+import { StampDetails } from "./stampDetails";
+import type { Stamp } from "@prisma/client";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+// type StampProps = {
+//   id: number;
+//   name: string;
+//   price: string;
+// };
 
-const Modal = () => {
+const Modal = ({ stamp }: { stamp?: Stamp }) => {
   const { isModalOpen, closeModal } = useModal();
-
+  console.log(stamp);
   if (!isModalOpen) return null;
+  if (!stamp) return <div>No stamps!</div>;
 
   return (
     <div
-      className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black"
+      className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/30"
       onClick={closeModal}
     >
       <div
         className="w-full max-w-sm rounded-lg bg-white p-6 shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-semibold">This is a modal</h2>
-        <p className="mt-4 text-gray-600">You can add any content here.</p>
+        <StampDetails stamp={stamp} />
         <div className="mt-6 flex justify-end">
           <button
             onClick={closeModal}

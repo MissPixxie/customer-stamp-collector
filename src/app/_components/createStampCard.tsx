@@ -4,24 +4,24 @@ import { useState } from "react";
 
 import { api } from "stampCollector/trpc/react";
 
-export function CreateStampCard({ customerId }: { customerId: number }) {
+export function CreateStampCard({ membersNr }: { membersNr: number }) {
   const utils = api.useUtils();
   const [message, setMessage] = useState<string>("");
 
   const createStampCard = api.stampCard.create.useMutation({
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
-      setMessage("Stämpelkortet har lagts till korrekt!");
+      setMessage("Stampcard has been added successfully!");
     },
     onError: (error) => {
-      setMessage(`Fel vid tillägg: ${error.message}`);
+      setMessage(`Error while adding stampcard: ${error.message}`);
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    createStampCard.mutate({ customerId });
+    createStampCard.mutate({ membersNr });
   };
 
   return (

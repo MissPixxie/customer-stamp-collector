@@ -18,7 +18,7 @@ export const stampRouter = createTRPCRouter({
         data: {
           name: input.stampBrand,
           price: input.stampPrice,
-          StampCard: {
+          stampCard: {
             connect: { id: input.stampCardId },
           },
         },
@@ -30,7 +30,7 @@ export const stampRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const stamps = await ctx.db.stamp.findMany({
         where: {
-          StampCardid: input.stampCardId,
+          stampCardid: input.stampCardId,
         },
       });
       return stamps;

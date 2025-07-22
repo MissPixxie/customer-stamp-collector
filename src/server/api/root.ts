@@ -3,7 +3,7 @@ import {
   createCallerFactory,
   createTRPCRouter,
 } from "stampCollector/server/api/trpc";
-import { customerRouter } from "./routers/customer";
+import { memberRouter } from "./routers/member";
 import { stampCardRouter } from "./routers/stampCard";
 import { stampRouter } from "./routers/stamp";
 
@@ -14,7 +14,7 @@ import { stampRouter } from "./routers/stamp";
  */
 export const appRouter = createTRPCRouter({
   post: postRouter,
-  customer: customerRouter,
+  member: memberRouter,
   stampCard: stampCardRouter,
   stamp: stampRouter,
 });

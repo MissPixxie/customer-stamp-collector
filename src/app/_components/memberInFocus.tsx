@@ -1,14 +1,18 @@
 "use client";
 import { useState } from "react";
-import { useSelectedMember, type Member } from "../memberContextProvider";
-import { CustomerCard } from "./customerCard";
+import { useSelectedMember } from "../memberContextProvider";
+import { MemberCard } from "./memberCard";
 import { StampCardInFocus } from "./stampCardInFocus";
 import { CreateStampCard } from "./createStampCard";
 import type { StampCard } from "@prisma/client";
+import type { StampCardWithStamps } from "stampCollector/server/api/routers/stampCard";
+//import type { StampCard } from "../memberContextProvider";
 
 export function MemberInFocus() {
   const { selectedMember } = useSelectedMember();
-  const [selectedCard, setSelectedCard] = useState<StampCard | null>(null);
+  const [selectedCard, setSelectedCard] = useState<StampCardWithStamps | null>(
+    null,
+  );
 
   console.log("memberinfocus", selectedMember?.stampCards);
   return (
@@ -21,7 +25,7 @@ export function MemberInFocus() {
           <div className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25">
             <div className="flex grow flex-row justify-between">
               <p className="truncat">
-                Medlemsnummer: {selectedMember.medlemsNr}
+                Medlemsnummer: {selectedMember.membersNr}
               </p>
               <p>
                 <strong>Skapad: </strong>
@@ -47,7 +51,7 @@ export function MemberInFocus() {
               ) : (
                 <p>Inga stämpelkort hittades..</p>
               )}
-              <CreateStampCard customerId={selectedMember.id} />
+              <CreateStampCard membersNr={selectedMember.id} />
             </div>
           </div>
         ) : (

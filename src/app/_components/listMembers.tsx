@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { api } from "stampCollector/trpc/react";
-import { CustomerCard } from "./customerCard";
+import { MemberCard } from "./memberCard";
 import type { StampCard } from "@prisma/client";
 import { useSelectedMember } from "../memberContextProvider";
 
@@ -29,26 +29,26 @@ import { useSelectedMember } from "../memberContextProvider";
 //   };
 // };
 
-export function ListCustomers() {
-  const [listAllCustomers] = api.customer.listAllCustomers.useSuspenseQuery();
+export function ListMembers() {
+  const [listAllMembers] = api.member.listAllMembers.useSuspenseQuery();
   const { setSelectedMember } = useSelectedMember();
 
   return (
     <div className="flex flex-row gap-5">
       <div className="flex flex-col gap-x-2 gap-y-2.5 rounded-md bg-white">
-        {listAllCustomers && listAllCustomers.length > 0 ? (
+        {listAllMembers && listAllMembers.length > 0 ? (
           <div>
             <h2 className="text-center text-lg font-bold text-white dark:text-black">
-              All Customers:
+              All Members:
             </h2>
-            {listAllCustomers.map((customer) => (
+            {listAllMembers.map((member) => (
               <div
-                key={customer.id}
+                key={member.id}
                 onClick={() => {
-                  setSelectedMember(customer);
+                  setSelectedMember(member);
                 }}
               >
-                <CustomerCard key={customer.id} customer={customer} />
+                <MemberCard key={member.id} member={member} />
               </div>
             ))}
           </div>

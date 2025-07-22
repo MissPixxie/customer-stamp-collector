@@ -4,21 +4,33 @@ import {
   publicProcedure,
 } from "stampCollector/server/api/trpc";
 
-export const customerRouter = createTRPCRouter({
-  getCustomer: publicProcedure
+import type { Prisma } from "@prisma/client";
+
+export type MemberWithCardsAndStamps = Prisma.MemberGetPayload<{
+  include: {
+    stampCards: {
+      include: {
+        stamps: true;
+      };
+    };
+  };
+}>;
+
+export const memberRouter = createTRPCRouter({
+  getMember: publicProcedure
     .input(z.number().optional())
     .query(async ({ ctx, input }) => {
-      const customer = await ctx.db.customer.findFirst({
+      const members = await ctx.db.member.findFirst({
         where: {
-          OR: [{ medlemsNr: input }],
+          OR: [{ membersNr: input }],
         },
       });
 
-      return customer;
+      return members;
     }),
 
-  listAllCustomers: publicProcedure.query(async ({ ctx }) => {
-    const customers = await ctx.db.customer.findMany({
+  listAllMembers: publicProcedure.query(async ({ ctx }) => {
+    const members = await ctx.db.member.findMany({
       include: {
         stampCards: {
           include: {
@@ -27,20 +39,19 @@ export const customerRouter = createTRPCRouter({
         },
       },
     });
-    console.log("customers from db: ", customers);
-    return customers;
+    return members;
   }),
 
   create: publicProcedure
     .input(
       z.object({
-        medlemsNr: z.number().min(1),
+        membersNr: z.number().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.customer.create({
+      return ctx.db.member.create({
         data: {
-          medlemsNr: input.medlemsNr,
+          membersNr: input.membersNr,
         },
       });
     }),

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { api } from "stampCollector/trpc/react";
 
 export function CreateStamp({ stampCardId }: { stampCardId: number }) {
-  const [getCustomer] = api.customer.getCustomer.useSuspenseQuery();
+  const [getMember] = api.member.getMember.useSuspenseQuery();
 
   const utils = api.useUtils();
   const [stampBrand, setStampBrand] = useState("");
@@ -17,10 +17,10 @@ export function CreateStamp({ stampCardId }: { stampCardId: number }) {
       await utils.stamp.invalidate();
       setStampBrand("");
       setStampPrice("");
-      setMessage("Stämpeln har lagts till korrekt!");
+      setMessage("Stamp has been added successfully!");
     },
     onError: (error) => {
-      setMessage(`Fel vid stämpeltillägg: ${error.message}`);
+      setMessage(`Error while adding stamp: ${error.message}`);
     },
   });
 
