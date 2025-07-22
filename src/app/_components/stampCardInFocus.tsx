@@ -1,6 +1,5 @@
 "use client";
 import type { Stamp, StampCard } from "@prisma/client";
-//import type { StampCard } from "../memberContextProvider";
 import { useSelectedMember } from "../memberContextProvider";
 import { MemberCard } from "./memberCard";
 import { CreateStamp } from "./createStamp";
@@ -8,15 +7,6 @@ import { StampDetails } from "./stampDetails";
 import { useModal } from "../modalContext";
 import Modal from "./modal";
 import type { StampCardWithStamps } from "stampCollector/server/api/routers/stampCard";
-
-// type StampCardProps = {
-//   stampCard: {
-//     id: number;
-//     customerid: number;
-//     stamps: Stamp[];
-//     createdAt: Date;
-//   };
-// };
 
 export function StampCardInFocus({
   stampCard,

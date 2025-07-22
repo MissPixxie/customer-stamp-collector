@@ -5,12 +5,6 @@ import { useModal } from "../modalContext";
 import { StampDetails } from "./stampDetails";
 import type { Stamp } from "@prisma/client";
 
-// type StampProps = {
-//   id: number;
-//   name: string;
-//   price: string;
-// };
-
 const Modal = ({ stamp }: { stamp?: Stamp }) => {
   const { isModalOpen, closeModal } = useModal();
   console.log(stamp);

@@ -6,7 +6,6 @@ import { StampCardInFocus } from "./stampCardInFocus";
 import { CreateStampCard } from "./createStampCard";
 import type { StampCard } from "@prisma/client";
 import type { StampCardWithStamps } from "stampCollector/server/api/routers/stampCard";
-//import type { StampCard } from "../memberContextProvider";
 
 export function MemberInFocus() {
   const { selectedMember } = useSelectedMember();

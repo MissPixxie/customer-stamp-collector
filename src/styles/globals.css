@@ -7,3 +7,22 @@
     --font-BioRhyme: "BioRhyme";
     --font-BioRhyme--font-variation-settings: 400 800;
 }
+
+@keyframes shine {
+  0% {
+    background-position: -200%;
+  }
+
+  100% {
+    background-position: 200%;
+  }
+}
+
+/* Skapa en shimmer effekt */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+  background-size: 200% 100%;
+  animation: shine 1.5s infinite linear;
+}

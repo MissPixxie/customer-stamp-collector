@@ -1,6 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+enum StampCardType {
+    Cat
+    Dog
+}
+
 generator client {
     provider = "prisma-client-js"
 }
@@ -22,18 +27,20 @@ model Post {
 model Member {
     id         Int         @id @default(autoincrement())
     membersNr  Int         @unique
+    name       String?
     stampCards StampCard[]
     createdAt  DateTime    @default(now())
     updatedAt  DateTime    @updatedAt
 }
 
 model StampCard {
-    id        Int      @id @default(autoincrement())
-    member    Member   @relation(fields: [membersNr], references: [id])
+    id        Int           @id @default(autoincrement())
+    member    Member        @relation(fields: [membersNr], references: [id])
     membersNr Int
+    type      StampCardType
     stamps    Stamp[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt DateTime      @default(now())
+    updatedAt DateTime      @updatedAt
 }
 
 model Stamp {

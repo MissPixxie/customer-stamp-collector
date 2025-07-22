@@ -2,16 +2,7 @@
 
 import { useState } from "react";
 import type { Stamp } from "@prisma/client";
-
 import { api } from "stampCollector/trpc/react";
-
-// type StampProps = {
-//   stamp: {
-//     id: number;
-//     name: string;
-//     price: string;
-//   };
-// };
 
 export function StampDetails({ stamp }: { stamp: Stamp }) {
   console.log("stampDetails", stamp.name);

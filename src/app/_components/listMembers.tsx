@@ -6,32 +6,19 @@ import { api } from "stampCollector/trpc/react";
 import { MemberCard } from "./memberCard";
 import type { StampCard } from "@prisma/client";
 import { useSelectedMember } from "../memberContextProvider";
-
-// type CustomerProps = {
-//   customer: {
-//     id: number;
-//     medlemsNr: number;
-//     createdAt: Date;
-//     updatedAt: Date;
-//     stampCards: {
-//       id: number;
-//       customerid: number;
-//       createdAt: Date;
-//       updatedAt: Date;
-//       stamps: {
-//         id: number;
-//         name: string;
-//         price: string;
-//         createdAt: Date;
-//         updatedAt: Date;
-//       }[];
-//     }[];
-//   };
-// };
+import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
 
 export function ListMembers() {
   const [listAllMembers] = api.member.listAllMembers.useSuspenseQuery();
-  const { setSelectedMember } = useSelectedMember();
+  const { setSelectedMember, selectedMember } = useSelectedMember();
+
+  const handleSetSelectedMember = (
+    newMember: MemberWithCardsAndStamps | null,
+  ) => {
+    if (!newMember || newMember.id !== selectedMember?.id) {
+      setSelectedMember(newMember);
+    }
+  };
 
   return (
     <div className="flex flex-row gap-5">
@@ -45,7 +32,7 @@ export function ListMembers() {
               <div
                 key={member.id}
                 onClick={() => {
-                  setSelectedMember(member);
+                  handleSetSelectedMember(member);
                 }}
               >
                 <MemberCard key={member.id} member={member} />

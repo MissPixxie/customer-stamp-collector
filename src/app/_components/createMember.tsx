@@ -9,6 +9,7 @@ export function CreateMember() {
 
   const utils = api.useUtils();
   const [membersNr, setMembersNr] = useState("");
+  const [membersName, setMembersName] = useState("");
   const [message, setMessage] = useState<string>("");
 
   const createMember = api.member.create.useMutation({
@@ -42,7 +43,7 @@ export function CreateMember() {
     }
 
     if (!getMember?.membersNr) {
-      createMember.mutate({ membersNr: membersNrInt });
+      createMember.mutate({ membersNr: membersNrInt, name: membersName });
       createStampCard.mutate({ membersNr: membersNrInt });
     } else {
       setMessage("An unexpected error occurrd. Try again.");
@@ -50,7 +51,7 @@ export function CreateMember() {
   };
 
   return (
-    <div className="h-100 w-full max-w-xs rounded-2xl bg-teal-300 shadow-purple-400">
+    <div className="h-100 w-full max-w-xs rounded-2xl shadow-purple-400">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-2 rounded-2xl bg-amber-200 p-2"
@@ -62,6 +63,13 @@ export function CreateMember() {
           onChange={(e) => setMembersNr(e.target.value)}
           className="w-full rounded-full bg-white/50 px-4 py-2 text-white dark:text-black"
         />
+        <input
+          type="text"
+          placeholder="namn (frivillig)"
+          value={membersName}
+          onChange={(e) => setMembersName(e.target.value)}
+          className="w-full rounded-full bg-white/50 px-4 py-2 text-white dark:text-black"
+        />
         <button
           type="submit"
           className="max-w-50 self-center rounded-4xl bg-white/50 px-10 py-3 font-semibold text-white transition hover:bg-white/20 dark:text-black"
@@ -70,9 +78,6 @@ export function CreateMember() {
           {createMember.isPending ? "Skapar kund..." : "Skapa kund"}
         </button>
       </form>
-      <button className="max-w-50 rounded-4xl bg-green-700/50 px-10 py-3 text-sm font-normal text-white transition hover:bg-green-700/30 dark:text-black">
-        Nytt stämpelkort
-      </button>
       {message && <div className="mt-4 text-center">{message}</div>}
     </div>
   );

@@ -39,6 +39,7 @@ export const memberRouter = createTRPCRouter({
         },
       },
     });
+    console.log(JSON.stringify(members, null, 2));
     return members;
   }),
 
@@ -46,12 +47,14 @@ export const memberRouter = createTRPCRouter({
     .input(
       z.object({
         membersNr: z.number().min(1),
+        name: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.db.member.create({
         data: {
           membersNr: input.membersNr,
+          name: input.name,
         },
       });
     }),
