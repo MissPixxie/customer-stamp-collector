@@ -7,7 +7,7 @@ import type { Member } from "@prisma/client";
 type ModalType = "createStamp" | "stampInFocus" | null;
 
 type ModalContextType = {
-  openModal: (modalType: ModalType, member: Member) => void;
+  openModal: (modalType: ModalType, member?: Member, cardId?: number) => void;
   closeModal: () => void;
   activeModal: ModalType;
 };

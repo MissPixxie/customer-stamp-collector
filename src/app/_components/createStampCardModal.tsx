@@ -16,6 +16,8 @@ export default function CreateStampCardModal() {
 
   const createStampCard = api.stampCard.create.useMutation({
     onSuccess: async () => {
+      await utils.member.listAllMembers.invalidate();
+      await utils.member.getMember.invalidate(selectedMember?.membersNr);
       await refetch();
       closeModal();
     },

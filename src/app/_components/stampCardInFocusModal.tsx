@@ -12,13 +12,13 @@ export default function StampCardInFocusModal() {
   const { selectedMember } = useSelectedMember();
   const [typeOfAnimal, setTypeOfAnimal] = useState<"Cat" | "Dog">("Cat");
 
-  const createStampCard = api.stampCard.create.useMutation({
+  const createStamp = api.stamp.create.useMutation({
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
-      setMessage("Stampcard has been added successfully!");
+      setMessage("Stamp has been added successfully!");
     },
     onError: (error) => {
-      setMessage(`Error while adding stampcard: ${error.message}`);
+      setMessage(`Error while adding stamp: ${error.message}`);
     },
   });
 
@@ -27,7 +27,7 @@ export default function StampCardInFocusModal() {
     if (selectedMember) {
       const membersNr = selectedMember.id;
       const type = typeOfAnimal;
-      createStampCard.mutate({ membersNr, type });
+      //createStamp.mutate({ membersNr, type });
     }
   };
 
