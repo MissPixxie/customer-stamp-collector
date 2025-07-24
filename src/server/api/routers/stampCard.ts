@@ -3,7 +3,7 @@ import {
   createTRPCRouter,
   publicProcedure,
 } from "stampCollector/server/api/trpc";
-import { Prisma } from "@prisma/client";
+import { Prisma, StampCardType } from "@prisma/client";
 
 export type StampCardWithStamps = Prisma.StampCardGetPayload<{
   include: { stamps: true };
@@ -11,27 +11,25 @@ export type StampCardWithStamps = Prisma.StampCardGetPayload<{
 
 export const stampCardRouter = createTRPCRouter({
   create: publicProcedure
-    .input(z.object({ membersNr: z.number().min(1) }))
+    .input(
+      z.object({
+        membersNr: z.number().min(1),
+        type: z.nativeEnum(StampCardType),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      const customer = await ctx.db.member.findUnique({
+      const member = await ctx.db.member.findUnique({
         where: { id: input.membersNr },
       });
 
-      if (!customer) {
+      if (!member) {
         throw new Error(`Customer with ID ${input.membersNr} not found`);
       }
 
-      return await ctx.db.stampCard.create({
+      const stampCard = await ctx.db.stampCard.create({
         data: {
-          stamps: {
-            create: Array.from({ length: 7 }, () => ({
-              name: "Default Name",
-              price: "0",
-            })),
-          },
-          member: {
-            connect: { id: input.membersNr },
-          },
+          membersNr: input.membersNr,
+          type: input.type,
         },
       });
     }),

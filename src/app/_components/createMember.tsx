@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from "react";
-
 import { api } from "stampCollector/trpc/react";
 
 export function CreateMember() {
-  const [getMember] = api.member.getMember.useSuspenseQuery();
-
-  const utils = api.useUtils();
   const [membersNr, setMembersNr] = useState("");
   const [membersName, setMembersName] = useState("");
   const [message, setMessage] = useState<string>("");
+
+  const {
+    data: getMember,
+    isLoading: isMemberLoading,
+    refetch,
+  } = api.member.getMember.useQuery(
+    membersNr ? parseInt(membersNr, 10) : undefined,
+    { enabled: false },
+  );
+  const utils = api.useUtils();
 
   const createMember = api.member.create.useMutation({
     onSuccess: async () => {
@@ -22,6 +28,7 @@ export function CreateMember() {
       setMessage(`Error while adding member: ${error.message}`);
     },
   });
+
   const createStampCard = api.stampCard.create.useMutation({
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
@@ -32,7 +39,7 @@ export function CreateMember() {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const membersNrInt = parseInt(membersNr, 10);
@@ -41,12 +48,12 @@ export function CreateMember() {
       setMessage("MembersNr is invalid");
       return;
     }
+    await refetch();
 
-    if (!getMember?.membersNr) {
-      createMember.mutate({ membersNr: membersNrInt, name: membersName });
-      createStampCard.mutate({ membersNr: membersNrInt });
+    if (getMember?.membersNr) {
+      setMessage("This member already exists.");
     } else {
-      setMessage("An unexpected error occurrd. Try again.");
+      createMember.mutate({ membersNr: membersNrInt, name: membersName });
     }
   };
 
@@ -58,14 +65,14 @@ export function CreateMember() {
       >
         <input
           type="text"
-          placeholder="medlemsnummer"
+          placeholder="Medlemsnummer"
           value={membersNr}
           onChange={(e) => setMembersNr(e.target.value)}
           className="w-full rounded-full bg-white/50 px-4 py-2 text-white dark:text-black"
         />
         <input
           type="text"
-          placeholder="namn (frivillig)"
+          placeholder="Namn (frivillig)"
           value={membersName}
           onChange={(e) => setMembersName(e.target.value)}
           className="w-full rounded-full bg-white/50 px-4 py-2 text-white dark:text-black"
@@ -73,9 +80,8 @@ export function CreateMember() {
         <button
           type="submit"
           className="max-w-50 self-center rounded-4xl bg-white/50 px-10 py-3 font-semibold text-white transition hover:bg-white/20 dark:text-black"
-          disabled={createMember.isPending}
         >
-          {createMember.isPending ? "Skapar kund..." : "Skapa kund"}
+          Skapa kund
         </button>
       </form>
       {message && <div className="mt-4 text-center">{message}</div>}

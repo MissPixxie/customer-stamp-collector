@@ -9,7 +9,8 @@ import {
   useSelectedMember,
 } from "./memberContextProvider";
 import { MemberInFocus } from "./_components/memberInFocus";
-import Modal from "./_components/modal";
+import CreateStampCardModal from "./_components/createStampCardModal";
+import StampCardInFocusModal from "./_components/stampCardInFocusModal";
 import { ModalProvider } from "./modalContext";
 
 export default async function Home() {
@@ -17,31 +18,29 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <ModalProvider>
-        <SelectedMemberProvider>
-          <Modal />
+      <SelectedMemberProvider>
+        <ModalProvider>
+          <CreateStampCardModal />
+          <StampCardInFocusModal />
           <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#5f0404] to-[#000000] text-white">
             <h1 className="font-BioRhyme mb-4 text-9xl font-extrabold opacity-70 text-shadow-lg/30">
               Dogman
             </h1>
             <div className="flex w-full flex-row gap-12 bg-amber-50 px-4 py-16">
-              {/* <LatestPost /> */}
               <div className="flex w-lg flex-col drop-shadow-xl/50">
                 <SearchBar />
                 <ListMembers />
               </div>
-              <div className="flex w-full max-w-lg flex-col gap-5 bg-amber-600">
-                <div className="h-full w-full max-w-xs rounded-2xl bg-amber-300">
-                  <MemberInFocus />
-                </div>
+              <div className="flex w-full max-w-lg flex-col gap-5 rounded-md bg-gray-800 drop-shadow-xl/50">
+                <MemberInFocus />
               </div>
               <div className="drop-shadow-xl/50">
                 <CreateMember />
               </div>
             </div>
           </main>
-        </SelectedMemberProvider>
-      </ModalProvider>
+        </ModalProvider>
+      </SelectedMemberProvider>
     </HydrateClient>
   );
 }

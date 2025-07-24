@@ -1,25 +1,27 @@
-"use client"; // Se till att denna fil är en klientkomponent
+"use client";
 
-import type { Stamp } from "@prisma/client";
-//import type { Stamp } from "./memberContextProvider";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useState, useContext, type ReactNode } from "react";
+import { useSelectedMember } from "./memberContextProvider";
+import type { Member } from "@prisma/client";
+
+type ModalType = "createStamp" | "stampInFocus" | null;
 
 type ModalContextType = {
-  isModalOpen: boolean;
-  openModal: (stamp: Stamp) => void;
+  openModal: (modalType: ModalType, member: Member) => void;
   closeModal: () => void;
+  activeModal: ModalType;
 };
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState<ModalType>(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (modalType: ModalType) => setActiveModal(modalType);
+  const closeModal = () => setActiveModal(null);
 
   return (
-    <ModalContext.Provider value={{ isModalOpen, openModal, closeModal }}>
+    <ModalContext.Provider value={{ activeModal, openModal, closeModal }}>
       {children}
     </ModalContext.Provider>
   );

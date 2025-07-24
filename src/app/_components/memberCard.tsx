@@ -40,16 +40,16 @@ export function MemberCard({ member }: { member: MemberWithCardsAndStamps }) {
   return (
     <div className="m-2 flex max-w-lg transform flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25 transition-transform duration-200 ease-in-out hover:scale-105">
       <div className="flex grow flex-row flex-wrap justify-between">
-        {member.name && (
-          <div className="w-full">
-            <p>{member.name}</p>
-          </div>
-        )}
         <p className="truncat">Medlemsnummer: {member.membersNr}</p>
         <p>
           <strong>Skapad: </strong>
           {new Date(member.createdAt).toLocaleDateString()}
         </p>
+        {member.name && (
+          <div className="w-full">
+            <p>{member.name}</p>
+          </div>
+        )}
       </div>
       <div className="flex grow flex-col">
         <h4 className="mt-4 text-lg font-semibold">Stämpelkort:</h4>

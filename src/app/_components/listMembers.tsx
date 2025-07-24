@@ -40,7 +40,7 @@ export function ListMembers() {
             ))}
           </div>
         ) : (
-          <p>You have no customers yet.</p>
+          <p>You have no members yet.</p>
         )}
       </div>
     </div>
