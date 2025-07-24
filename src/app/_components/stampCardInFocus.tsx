@@ -1,6 +1,6 @@
 "use client";
 import type { Stamp, StampCard } from "@prisma/client";
-import { useSelectedMember } from "../memberContextProvider";
+import { useSelectedMember } from "../hooks/useSelectedMember";
 import { MemberCard } from "./memberCard";
 import { CreateStamp } from "./createStamp";
 import { StampDetails } from "./stampDetails";

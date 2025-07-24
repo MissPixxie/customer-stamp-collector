@@ -29,16 +29,6 @@ export function CreateMember() {
     },
   });
 
-  const createStampCard = api.stampCard.create.useMutation({
-    onSuccess: async () => {
-      await utils.stampCard.getStampCard.invalidate();
-      setMessage("Stampcard has been added successfully!");
-    },
-    onError: (error) => {
-      setMessage(`Error while adding stampcard: ${error.message}`);
-    },
-  });
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useState, useContext, type ReactNode } from "react";
-import { useSelectedMember } from "./memberContextProvider";
+import { useSelectedMemberContext } from "./memberContextProvider";
 import type { Member } from "@prisma/client";
 
 type ModalType = "createStamp" | "stampInFocus" | null;

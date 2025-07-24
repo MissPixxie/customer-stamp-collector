@@ -4,8 +4,8 @@ import type { Member } from "@prisma/client";
 import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
 
 type SelectedMemberContextType = {
-  selectedMember: MemberWithCardsAndStamps | null;
-  setSelectedMember: (member: MemberWithCardsAndStamps | null) => void;
+  selectedMemberId: number | null;
+  setSelectedMemberId: (member: number | null) => void;
 };
 
 export const SelectedMemberContext = createContext<
@@ -17,19 +17,18 @@ export const SelectedMemberProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [selectedMember, setSelectedMember] =
-    useState<MemberWithCardsAndStamps | null>(null);
+  const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
 
   return (
     <SelectedMemberContext.Provider
-      value={{ selectedMember, setSelectedMember }}
+      value={{ selectedMemberId, setSelectedMemberId }}
     >
       {children}
     </SelectedMemberContext.Provider>
   );
 };
 
-export const useSelectedMember = () => {
+export const useSelectedMemberContext = () => {
   const context = useContext(SelectedMemberContext);
   if (!context)
     throw new Error(

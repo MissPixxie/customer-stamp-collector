@@ -1,24 +1,12 @@
 "use client";
 
-import { useState } from "react";
-
 import { api } from "stampCollector/trpc/react";
 import { MemberCard } from "./memberCard";
-import type { StampCard } from "@prisma/client";
-import { useSelectedMember } from "../memberContextProvider";
-import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
+import { useSelectedMember } from "../hooks/useSelectedMember";
 
 export function ListMembers() {
   const [listAllMembers] = api.member.listAllMembers.useSuspenseQuery();
-  const { setSelectedMember, selectedMember } = useSelectedMember();
-
-  const handleSetSelectedMember = (
-    newMember: MemberWithCardsAndStamps | null,
-  ) => {
-    if (!newMember || newMember.id !== selectedMember?.id) {
-      setSelectedMember(newMember);
-    }
-  };
+  const { selectedMember, setSelectedMemberId } = useSelectedMember();
 
   return (
     <div className="flex flex-row gap-5">
@@ -32,7 +20,7 @@ export function ListMembers() {
               <div
                 key={member.id}
                 onClick={() => {
-                  handleSetSelectedMember(member);
+                  setSelectedMemberId(member.membersNr);
                 }}
               >
                 <MemberCard key={member.id} member={member} />

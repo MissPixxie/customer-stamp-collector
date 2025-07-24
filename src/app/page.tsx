@@ -6,7 +6,7 @@ import SearchBar from "./_components/search";
 import { ListMembers } from "./_components/listMembers";
 import {
   SelectedMemberProvider,
-  useSelectedMember,
+  useSelectedMemberContext,
 } from "./memberContextProvider";
 import { MemberInFocus } from "./_components/memberInFocus";
 import CreateStampCardModal from "./_components/createStampCardModal";

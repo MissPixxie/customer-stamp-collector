@@ -2,7 +2,7 @@
 
 import { useModal } from "../modalContext";
 import { api } from "stampCollector/trpc/react";
-import { useSelectedMember } from "../memberContextProvider";
+import { useSelectedMember } from "../hooks/useSelectedMember";
 import { useState } from "react";
 
 export default function StampCardInFocusModal() {

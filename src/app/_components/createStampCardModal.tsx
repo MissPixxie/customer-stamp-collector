@@ -2,7 +2,7 @@
 
 import { useModal } from "../modalContext";
 import { api } from "stampCollector/trpc/react";
-import { useSelectedMember } from "../memberContextProvider";
+import { useSelectedMember } from "../hooks/useSelectedMember";
 import { useState } from "react";
 import { StampCardType } from "@prisma/client";
 
@@ -10,18 +10,17 @@ export default function CreateStampCardModal() {
   const utils = api.useUtils();
   const [message, setMessage] = useState<string>("");
   const { activeModal, closeModal } = useModal();
-  const { selectedMember } = useSelectedMember();
+  const { selectedMember, refetch } = useSelectedMember();
   const { Cat, Dog } = StampCardType;
   const [stampCardType, setStampCardType] = useState<StampCardType>(Cat);
-  console.log(selectedMember?.id, JSON.stringify(selectedMember?.stampCards));
+
   const createStampCard = api.stampCard.create.useMutation({
     onSuccess: async () => {
-      await utils.stampCard.getStampCard.invalidate();
-      setMessage("Stampcard has been added successfully!");
+      await refetch();
       closeModal();
     },
     onError: (error) => {
-      setMessage(`Error while adding stampcard: ${error.message}`);
+      setMessage(`Fel: ${error.message}`);
     },
   });
 

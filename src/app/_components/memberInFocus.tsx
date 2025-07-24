@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import { useSelectedMember } from "../memberContextProvider";
+import { useSelectedMember } from "../hooks/useSelectedMember";
 import type { StampCardWithStamps } from "stampCollector/server/api/routers/stampCard";
 import { useModal } from "../modalContext";
 
 export function MemberInFocus() {
-  const { selectedMember } = useSelectedMember();
+  const { selectedMember, isLoading } = useSelectedMember();
   const { activeModal, closeModal, openModal } = useModal();
   const [selectedCard, setSelectedCard] = useState<StampCardWithStamps | null>(
     null,
@@ -43,9 +43,9 @@ export function MemberInFocus() {
         <div className="flex grow flex-col">
           <h4 className="mt-4 text-lg font-semibold">Stämpelkort:</h4>
           {selectedMember.stampCards.length > 0 ? (
-            <ul className="cursor-pointer list-disc pl-5">
+            <ul className="cursor-pointer">
               {selectedMember.stampCards.map((stampcard) => (
-                <div className="m-2 flex max-w-lg transform flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25 transition-transform duration-200 ease-in-out hover:scale-105">
+                <div className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25">
                   <li key={stampcard.id}>Stämpelkort ID: {stampcard.id}</li>
                 </div>
               ))}

@@ -20,13 +20,22 @@ export const memberRouter = createTRPCRouter({
   getMember: publicProcedure
     .input(z.number().optional())
     .query(async ({ ctx, input }) => {
-      const members = await ctx.db.member.findFirst({
+      if (!input) return null;
+
+      const member = await ctx.db.member.findUnique({
         where: {
-          OR: [{ membersNr: input }],
+          membersNr: input,
+        },
+        include: {
+          stampCards: {
+            include: {
+              stamps: true,
+            },
+          },
         },
       });
 
-      return members;
+      return member;
     }),
 
   listAllMembers: publicProcedure.query(async ({ ctx }) => {
