@@ -10,13 +10,22 @@ export const stampRouter = createTRPCRouter({
       z.object({
         stampCardId: z.number().min(1),
         stampBrand: z.string().min(1),
+        stampSize: z.string().optional(),
         stampPrice: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.stamp.create({
+      const stampCard = await ctx.db.stampCard.findFirst({
+        where: { id: input.stampCardId },
+      });
+      if (!stampCard) {
+        throw new Error(`Customer with ID ${input.stampCardId} not found`);
+      }
+
+      const stamp = await ctx.db.stamp.create({
         data: {
-          name: input.stampBrand,
+          brand: input.stampBrand,
+          size: input.stampSize,
           price: input.stampPrice,
           stampCard: {
             connect: { id: input.stampCardId },

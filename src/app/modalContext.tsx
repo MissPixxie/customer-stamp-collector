@@ -10,6 +10,7 @@ type ModalContextType = {
   openModal: (modalType: ModalType, member?: Member, cardId?: number) => void;
   closeModal: () => void;
   activeModal: ModalType;
+  modalData?: any;
 };
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);

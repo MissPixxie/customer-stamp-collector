@@ -6,6 +6,8 @@ import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers
 type SelectedMemberContextType = {
   selectedMemberId: number | null;
   setSelectedMemberId: (member: number | null) => void;
+  selectedStampCardId: number | null;
+  setSelectedStampCardId: (member: number | null) => void;
 };
 
 export const SelectedMemberContext = createContext<
@@ -18,10 +20,18 @@ export const SelectedMemberProvider = ({
   children: ReactNode;
 }) => {
   const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
+  const [selectedStampCardId, setSelectedStampCardId] = useState<number | null>(
+    null,
+  );
 
   return (
     <SelectedMemberContext.Provider
-      value={{ selectedMemberId, setSelectedMemberId }}
+      value={{
+        selectedMemberId,
+        setSelectedMemberId,
+        selectedStampCardId,
+        setSelectedStampCardId,
+      }}
     >
       {children}
     </SelectedMemberContext.Provider>

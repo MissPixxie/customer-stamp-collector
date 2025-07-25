@@ -45,7 +45,8 @@ model StampCard {
 
 model Stamp {
     id          Int       @id @default(autoincrement())
-    name        String
+    brand       String
+    size        String?
     price       String
     stampCard   StampCard @relation(fields: [stampCardid], references: [id])
     stampCardid Int

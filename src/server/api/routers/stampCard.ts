@@ -36,7 +36,9 @@ export const stampCardRouter = createTRPCRouter({
 
   getStampCard: publicProcedure
     .input(z.object({ membersNr: z.number().min(1) }))
-    .query(async ({ ctx, input }): Promise<StampCardWithStamps[]> => {
+    .query(async ({ ctx, input }) => {
+      if (!input) return null;
+
       const stampCards = await ctx.db.stampCard.findMany({
         where: {
           membersNr: input.membersNr,
@@ -45,8 +47,29 @@ export const stampCardRouter = createTRPCRouter({
           stamps: true,
         },
       });
-      console.log("stampCards from db:", JSON.stringify(stampCards, null, 2));
+
       return stampCards;
+    }),
+
+  getSpecificStampCard: publicProcedure
+    .input(
+      z.object({
+        membersNr: z.number().min(1),
+        stampCardId: z.number().min(1),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      if (!input) return null;
+
+      const stampCard = await ctx.db.stampCard.findFirst({
+        where: {
+          id: input.stampCardId,
+        },
+        include: {
+          stamps: true,
+        },
+      });
+      return stampCard;
     }),
 
   //   delete: publicProcedure

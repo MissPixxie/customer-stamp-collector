@@ -44,6 +44,7 @@ export function CreateMember() {
       setMessage("This member already exists.");
     } else {
       createMember.mutate({ membersNr: membersNrInt, name: membersName });
+      setMembersName("Namn (frivillig)");
     }
   };
 

@@ -19,7 +19,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "reset": "rm prisma/db.sqlite && npx prisma db push"
+"reset": "rimraf prisma/db.sqlite && npx prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^6.12.0",
@@ -47,6 +47,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^6.12.0",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^4.0.15",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.27.0"

@@ -4,13 +4,26 @@ import { useModal } from "../modalContext";
 import { api } from "stampCollector/trpc/react";
 import { useSelectedMember } from "../hooks/useSelectedMember";
 import { useState } from "react";
+import { useSelectedStampCard } from "../hooks/useSelectedStampCard";
+import { StampCardType } from "@prisma/client";
 
 export default function StampCardInFocusModal() {
   const utils = api.useUtils();
   const [message, setMessage] = useState<string>("");
   const { activeModal, closeModal } = useModal();
   const { selectedMember } = useSelectedMember();
-  const [typeOfAnimal, setTypeOfAnimal] = useState<"Cat" | "Dog">("Cat");
+  const { selectedStampCard } = useSelectedStampCard();
+  const { Cat, Dog } = StampCardType;
+  const [stamps, setStamps] = useState(
+    Array(7).fill({ name: "", size: "", price: "" }),
+  );
+  console.log(selectedStampCard?.type);
+
+  const handleChange = (index: number, field: string, value: string) => {
+    const newStamps = [...stamps];
+    newStamps[index] = { ...newStamps[index], [field]: value };
+    setStamps(newStamps);
+  };
 
   const createStamp = api.stamp.create.useMutation({
     onSuccess: async () => {
@@ -26,7 +39,7 @@ export default function StampCardInFocusModal() {
     e.preventDefault();
     if (selectedMember) {
       const membersNr = selectedMember.id;
-      const type = typeOfAnimal;
+
       //createStamp.mutate({ membersNr, type });
     }
   };
@@ -42,27 +55,28 @@ export default function StampCardInFocusModal() {
         className="w-full max-w-sm rounded-lg bg-white p-6 shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
-        <form>
-          <label className="custom-radio">
-            <input
-              type="radio"
-              name="typeOfAnimal"
-              value="cat"
-              onClick={() => setTypeOfAnimal("Cat")}
-            />
-            <span></span> Katt
-          </label>
-          <label className="custom-radio">
-            <input
-              type="radio"
-              name="typeOfAnimal"
-              value="dog"
-              onClick={() => setTypeOfAnimal("Dog")}
-            />
-            <span></span> Hund
-          </label>
-        </form>
-
+        <div className="m-auto w-full">
+          <form className="flex justify-center pb-5 pl-7">
+            <label className="custom-radio">
+              <input
+                type="radio"
+                name="typeOfAnimal"
+                value="cat"
+                checked={selectedStampCard?.type === Cat}
+              />
+              <span></span> Katt
+            </label>
+            <label className="custom-radio">
+              <input
+                type="radio"
+                name="typeOfAnimal"
+                value="dog"
+                checked={selectedStampCard?.type === Dog}
+              />
+              <span></span> Hund
+            </label>
+          </form>
+        </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {[...Array(7)].map((_, index) => (
             <div
@@ -95,6 +109,7 @@ export default function StampCardInFocusModal() {
         <div className="mt-6 flex justify-end gap-2">
           <button
             type="submit"
+            onClick={handleSubmit}
             className="rounded-lg bg-green-500 px-4 py-2 text-white hover:bg-green-600"
           >
             Spara
