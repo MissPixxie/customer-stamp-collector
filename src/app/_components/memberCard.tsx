@@ -1,12 +1,10 @@
 "use client";
 
-import type { Member, StampCard } from "@prisma/client";
-import { useEffect, useState, type MouseEventHandler } from "react";
+import { useState } from "react";
 import { api } from "stampCollector/trpc/react";
 import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
 
 export function MemberCard({ member }: { member: MemberWithCardsAndStamps }) {
-  const [loading, setLoading] = useState(true);
   const {
     data: stampCards,
     refetch,

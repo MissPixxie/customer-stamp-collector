@@ -12,23 +12,26 @@ export default function StampCardInFocusModal() {
   const [message, setMessage] = useState<string>("");
   const { activeModal, closeModal } = useModal();
   const { selectedMember } = useSelectedMember();
-  const { selectedStampCard } = useSelectedStampCard();
+  const { selectedStampCard, refetch } = useSelectedStampCard();
   const { Cat, Dog } = StampCardType;
+  const [stampIndex, setStampIndex] = useState<number | null>(null);
   const [stamps, setStamps] = useState(
-    Array(7).fill({ name: "", size: "", price: "" }),
+    Array(6).fill({ brand: "", size: "", price: "" }),
   );
-  console.log(selectedStampCard?.type);
 
   const handleChange = (index: number, field: string, value: string) => {
     const newStamps = [...stamps];
     newStamps[index] = { ...newStamps[index], [field]: value };
     setStamps(newStamps);
+    setStampIndex(index);
   };
 
   const createStamp = api.stamp.create.useMutation({
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
       setMessage("Stamp has been added successfully!");
+      await refetch();
+      closeModal();
     },
     onError: (error) => {
       setMessage(`Error while adding stamp: ${error.message}`);
@@ -37,10 +40,24 @@ export default function StampCardInFocusModal() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (selectedMember) {
-      const membersNr = selectedMember.id;
+    console.log(stampIndex);
+    if (stampIndex !== null) {
+      const stamp = stamps[stampIndex];
 
-      //createStamp.mutate({ membersNr, type });
+      if (selectedStampCard && stamp) {
+        const stampCardId = selectedStampCard.id;
+        const stampBrand = stamp.brand;
+        const stampSize = stamp.size;
+        const stampPrice = stamp.price;
+
+        createStamp.mutate({
+          stampCardId,
+          stampBrand,
+          stampSize,
+          stampPrice,
+        });
+        setMessage("Stämpeln har lagts till!");
+      }
     }
   };
 
@@ -87,25 +104,30 @@ export default function StampCardInFocusModal() {
               <input
                 type="text"
                 placeholder="Fodernamn"
-                name={`stamp[${index}].name`}
+                name={`stamp[${index}].brand`}
+                value={stamps[index].brand}
+                onChange={(e) => handleChange(index, "brand", e.target.value)}
                 className="mb-2 w-full rounded border px-3 py-1"
               />
               <input
                 type="text"
                 placeholder="Storlek"
                 name={`stamp[${index}].size`}
+                value={stamps[index].size}
+                onChange={(e) => handleChange(index, "size", e.target.value)}
                 className="mb-2 w-full rounded border px-3 py-1"
               />
               <input
                 type="text"
                 placeholder="Pris"
                 name={`stamp[${index}].price`}
+                value={stamps[index].price}
+                onChange={(e) => handleChange(index, "price", e.target.value)}
                 className="w-full rounded border px-3 py-1"
               />
             </div>
           ))}
         </div>
-
         <div className="mt-6 flex justify-end gap-2">
           <button
             type="submit"

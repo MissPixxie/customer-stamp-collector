@@ -41,7 +41,7 @@ export default function SearchBar() {
         />
         <button
           type="submit"
-          className="rounded-2xl bg-white px-10 py-3 font-semibold text-white transition hover:bg-white/40 dark:text-black"
+          className="transform rounded-2xl bg-white px-10 py-3 font-semibold text-white transition-transform duration-200 ease-in-out hover:scale-95 dark:text-black"
         >
           Sök
         </button>

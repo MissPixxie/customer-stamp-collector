@@ -1,7 +1,6 @@
 "use client";
-import { useState } from "react";
+
 import { useSelectedMember } from "../hooks/useSelectedMember";
-import type { StampCardWithStamps } from "stampCollector/server/api/routers/stampCard";
 import { useModal } from "../modalContext";
 import { useSelectedStampCard } from "../hooks/useSelectedStampCard";
 
@@ -18,33 +17,27 @@ export function MemberInFocus() {
   }
   return (
     <div>
-      <div className="flex justify-between">
-        <h1 className="text-center text-lg font-bold text-white dark:text-black">
-          Medlem i fokus
-        </h1>
-        <button
-          className="max-w-50 self-end rounded-2xl bg-green-400/80 px-4 py-3 text-sm font-normal text-white transition hover:bg-green-900 dark:text-black"
-          onClick={() => openModal("createStamp", selectedMember)}
-        >
-          Nytt stämpelkort
-        </button>
-      </div>
-      <div className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25">
-        <div className="flex grow flex-row flex-wrap justify-between">
-          <p className="truncat">Medlemsnummer: {selectedMember.membersNr}</p>
-          <p>
-            <strong>Skapad: </strong>
-            {new Date(selectedMember.createdAt).toLocaleDateString()}
-          </p>
-          {selectedMember.name && (
-            <div className="w-full">
-              <p>{selectedMember.name}</p>
-            </div>
-          )}
+      <div className="flex grow flex-col rounded-2xl bg-amber-500 pt-5 pr-5 pb-5 pl-5">
+        <div className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25">
+          <div className="flex grow flex-row flex-wrap justify-between bg-green-300">
+            <p className="truncat">Medlemsnummer: {selectedMember.membersNr}</p>
+            <p>
+              <strong>Skapad: </strong>
+              {new Date(selectedMember.createdAt).toLocaleDateString()}
+            </p>
+            {selectedMember.name && (
+              <div className="w-full">
+                <p>{selectedMember.name}</p>
+              </div>
+            )}
+            <button
+              className="transform self-end rounded-xl bg-gradient-to-r from-green-500 via-green-400 to-green-600 px-3 py-1 text-black shadow-lg transition-transform duration-200 ease-in-out hover:scale-95"
+              onClick={() => openModal("createStamp", selectedMember)}
+            >
+              <h4 className="text-4xl">+</h4>
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div className="flex grow flex-col">
         <h4 className="mt-4 text-lg font-semibold">Stämpelkort:</h4>
         {selectedMember.stampCards.length > 0 ? (
           <ul className="cursor-pointer">
@@ -68,7 +61,7 @@ export function MemberInFocus() {
                   }}
                   className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25"
                 >
-                  <div className="flex w-full justify-between font-bold text-white">
+                  <div className="flex w-full justify-between text-white">
                     <p>Stämpelkort: {stampcard.id}</p>
                     <p>{typeTranslation[stampcard.type] || stampcard.type}</p>
                   </div>

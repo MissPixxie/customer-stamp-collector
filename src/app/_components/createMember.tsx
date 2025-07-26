@@ -70,12 +70,12 @@ export function CreateMember() {
         />
         <button
           type="submit"
-          className="max-w-50 self-center rounded-4xl bg-white/50 px-10 py-3 font-semibold text-white transition hover:bg-white/20 dark:text-black"
+          className="transform rounded-xl bg-gradient-to-r from-green-500 via-green-400 to-green-600 px-5 py-3 text-black shadow-lg transition-transform duration-200 ease-in-out hover:scale-95"
         >
-          Skapa kund
+          Skapa Medlem
         </button>
       </form>
-      {message && <div className="mt-4 text-center">{message}</div>}
+      {/* {message && <div className="mt-4 text-center">{message}</div>} */}
     </div>
   );
 }

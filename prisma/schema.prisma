@@ -6,6 +6,12 @@ enum StampCardType {
     Dog
 }
 
+enum Role {
+    USER
+    ADMIN
+    MODERATOR
+}
+
 generator client {
     provider = "prisma-client-js"
 }
@@ -15,13 +21,12 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    @@index([name])
+model User {
+    id             String   @id @default(cuid())
+    username       String   @unique
+    hashedPassword String
+    role           Role     @default(USER)
+    createdAt      DateTime @default(now())
 }
 
 model Member {

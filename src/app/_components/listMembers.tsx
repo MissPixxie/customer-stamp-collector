@@ -6,7 +6,7 @@ import { useSelectedMember } from "../hooks/useSelectedMember";
 
 export function ListMembers() {
   const [listAllMembers] = api.member.listAllMembers.useSuspenseQuery();
-  const { selectedMember, setSelectedMemberId } = useSelectedMember();
+  const { setSelectedMemberId } = useSelectedMember();
 
   return (
     <div className="flex flex-row gap-5">
@@ -14,7 +14,7 @@ export function ListMembers() {
         {listAllMembers && listAllMembers.length > 0 ? (
           <div>
             <h2 className="text-center text-lg font-bold text-white dark:text-black">
-              All Members:
+              Alla Medlemmar
             </h2>
             {listAllMembers.map((member) => (
               <div

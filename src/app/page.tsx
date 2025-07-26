@@ -1,20 +1,15 @@
-import Link from "next/link";
-import { LatestPost } from "stampCollector/app/_components/post";
 import { api, HydrateClient } from "stampCollector/trpc/server";
 import { CreateMember } from "./_components/createMember";
 import SearchBar from "./_components/search";
 import { ListMembers } from "./_components/listMembers";
-import {
-  SelectedMemberProvider,
-  useSelectedMemberContext,
-} from "./memberContextProvider";
+import { SelectedMemberProvider } from "./memberContextProvider";
 import { MemberInFocus } from "./_components/memberInFocus";
 import CreateStampCardModal from "./_components/createStampCardModal";
 import StampCardInFocusModal from "./_components/stampCardInFocusModal";
 import { ModalProvider } from "./modalContext";
 
 export default async function Home() {
-  void api.post.getLatest.prefetch();
+  void api.member.listAllMembers.prefetch();
 
   return (
     <HydrateClient>
@@ -31,7 +26,7 @@ export default async function Home() {
                 <SearchBar />
                 <ListMembers />
               </div>
-              <div className="flex w-full max-w-lg flex-col gap-5 rounded-md bg-gray-800 drop-shadow-xl/50">
+              <div className="flex w-full max-w-lg flex-col gap-5 rounded-md drop-shadow-xl/50">
                 <MemberInFocus />
               </div>
               <div className="drop-shadow-xl/50">
