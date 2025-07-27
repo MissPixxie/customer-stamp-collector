@@ -1,7 +1,5 @@
 "use client";
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { Member } from "@prisma/client";
-import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
 
 type SelectedMemberContextType = {
   selectedMemberId: number | null;

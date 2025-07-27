@@ -1,16 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { api } from "stampCollector/trpc/react";
 import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
 
 export function MemberCard({ member }: { member: MemberWithCardsAndStamps }) {
-  const {
-    data: stampCards,
-    refetch,
-    isLoading,
-    isError,
-  } = api.stampCard.getStampCard.useQuery(
+  const { isLoading, isError } = api.stampCard.getStampCard.useQuery(
     { membersNr: member.membersNr },
     { enabled: !!member.membersNr },
   );

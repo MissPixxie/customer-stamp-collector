@@ -7,12 +7,8 @@ export function CreateMember() {
   const [membersNr, setMembersNr] = useState("");
   const [membersName, setMembersName] = useState("");
   const [message, setMessage] = useState<string>("");
-
-  const {
-    data: getMember,
-    isLoading: isMemberLoading,
-    refetch,
-  } = api.member.getMember.useQuery(
+  console.log(message);
+  const { data: getMember, refetch } = api.member.getMember.useQuery(
     membersNr ? parseInt(membersNr, 10) : undefined,
     { enabled: false },
   );

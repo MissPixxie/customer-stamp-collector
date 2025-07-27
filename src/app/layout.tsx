@@ -2,9 +2,7 @@ import "stampCollector/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-
 import { TRPCReactProvider } from "stampCollector/trpc/react";
-import { ModalProvider } from "./modalContext";
 
 export const metadata: Metadata = {
   title: "Customer stampcard collector",

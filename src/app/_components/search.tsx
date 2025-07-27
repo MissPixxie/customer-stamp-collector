@@ -4,9 +4,8 @@ import { api } from "stampCollector/trpc/react";
 
 export default function SearchBar() {
   const [membersNr, setMembersNr] = useState("");
-  const [member, setMember] = useState("");
 
-  const utils = api.useUtils();
+  api.useUtils();
   const getMember = api.member.getMember.useQuery();
 
   const handleSubmit = (e: React.FormEvent) => {

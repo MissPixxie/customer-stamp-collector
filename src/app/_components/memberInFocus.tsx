@@ -5,8 +5,8 @@ import { useModal } from "../modalContext";
 import { useSelectedStampCard } from "../hooks/useSelectedStampCard";
 
 export function MemberInFocus() {
-  const { selectedMember, isLoading } = useSelectedMember();
-  const { activeModal, closeModal, openModal } = useModal();
+  const { selectedMember } = useSelectedMember();
+  const { openModal } = useModal();
   const { selectedStampCard, setSelectedStampCardId, isStampCardLoading } =
     useSelectedStampCard();
 

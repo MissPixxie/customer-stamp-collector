@@ -18,7 +18,7 @@ export default function StampCardInFocusModal() {
   const [stamps, setStamps] = useState(
     Array(6).fill({ brand: "", size: "", price: "" }),
   );
-
+  console.log(message);
   const handleChange = (index: number, field: string, value: string) => {
     const newStamps = [...stamps];
     newStamps[index] = { ...newStamps[index], [field]: value };

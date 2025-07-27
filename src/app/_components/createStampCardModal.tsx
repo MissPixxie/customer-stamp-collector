@@ -25,7 +25,7 @@ export default function CreateStampCardModal() {
       setMessage(`Fel: ${error.message}`);
     },
   });
-
+  console.log(message);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedMember) {
