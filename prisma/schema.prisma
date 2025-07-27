@@ -1,59 +1,60 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-enum StampCardType {
-    Cat
-    Dog
-}
-
-enum Role {
-    USER
-    ADMIN
-    MODERATOR
-}
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id             String   @id @default(cuid())
-    username       String   @unique
-    hashedPassword String
-    role           Role     @default(USER)
-    createdAt      DateTime @default(now())
+  id             String   @id @default(cuid())
+  username       String   @unique
+  hashedPassword String
+  role           Role     @default(USER)
+  createdAt      DateTime @default(now())
 }
 
 model Member {
-    id         Int         @id @default(autoincrement())
-    membersNr  Int         @unique
-    name       String?
-    stampCards StampCard[]
-    createdAt  DateTime    @default(now())
-    updatedAt  DateTime    @updatedAt
+  id         Int         @id @default(autoincrement())
+  membersNr  Int         @unique
+  name       String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  stampCards StampCard[]
 }
 
 model StampCard {
-    id        Int           @id @default(autoincrement())
-    member    Member        @relation(fields: [membersNr], references: [id])
-    membersNr Int
-    type      StampCardType
-    stamps    Stamp[]
-    createdAt DateTime      @default(now())
-    updatedAt DateTime      @updatedAt
+  id        Int           @id @default(autoincrement())
+  membersNr Int
+  type      StampCardType
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  stamps    Stamp[]
+  member    Member        @relation(fields: [membersNr], references: [id])
+
+  @@index([membersNr], map: "StampCard_membersNr_fkey")
 }
 
 model Stamp {
-    id          Int       @id @default(autoincrement())
-    brand       String
-    size        String?
-    price       String
-    stampCard   StampCard @relation(fields: [stampCardid], references: [id])
-    stampCardid Int
-    createdAt   DateTime  @default(now())
+  id          Int       @id @default(autoincrement())
+  brand       String
+  size        String?
+  price       String
+  stampCardid Int
+  createdAt   DateTime  @default(now())
+  stampCard   StampCard @relation(fields: [stampCardid], references: [id])
+
+  @@index([stampCardid], map: "Stamp_stampCardid_fkey")
+}
+
+enum StampCardType {
+  Cat
+  Dog
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
 }
