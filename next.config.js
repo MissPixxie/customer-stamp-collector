@@ -10,7 +10,7 @@ const config = {
     ignoreDuringBuilds: true,
   },
   env: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    MYSQL_URL: process.env.MYSQL_URL,
   },
 };
 
