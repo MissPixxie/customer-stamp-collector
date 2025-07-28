@@ -75,7 +75,7 @@ export function MemberInFocus() {
                       />
                     ))}
 
-                    {[...Array(empty)].map((_, idx) => (
+                    {[...Array(empty).keys()].map((idx) => (
                       <div
                         key={`empty-${idx}`}
                         className="h-9 w-9 rounded-full border-2 border-white"

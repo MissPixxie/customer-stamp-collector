@@ -22,7 +22,7 @@ export const stampRouter = createTRPCRouter({
         throw new Error(`Customer with ID ${input.stampCardId} not found`);
       }
 
-      const stamp = await ctx.db.stamp.create({
+      await ctx.db.stamp.create({
         data: {
           brand: input.stampBrand,
           size: input.stampSize,

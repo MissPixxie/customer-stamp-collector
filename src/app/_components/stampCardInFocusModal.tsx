@@ -5,7 +5,7 @@ import { api } from "stampCollector/trpc/react";
 import { useSelectedMember } from "../hooks/useSelectedMember";
 import { useState } from "react";
 import { useSelectedStampCard } from "../hooks/useSelectedStampCard";
-import { StampCardType } from "@prisma/client";
+import { StampCardType, type Stamp } from "@prisma/client";
 
 export default function StampCardInFocusModal() {
   const utils = api.useUtils();
