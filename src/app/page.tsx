@@ -9,7 +9,7 @@ import StampCardInFocusModal from "./_components/stampCardInFocusModal";
 import { ModalProvider } from "./modalContext";
 
 export default async function Home() {
-  void api.member.listAllMembers.prefetch();
+  //void api.member.listAllMembers.prefetch();
 
   return (
     <HydrateClient>
