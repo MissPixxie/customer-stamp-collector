@@ -29,18 +29,18 @@ export default function SearchBar() {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="flex max-w-lg gap-1 rounded-md bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-2"
+        className="flex max-w-lg gap-1 rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-2 md:w-full"
       >
         <input
           type="text"
           placeholder="Kund"
           value={membersNr}
           onChange={(e) => setMembersNr(e.target.value)}
-          className="w-full rounded-2xl bg-white px-4 py-2 text-white dark:text-black"
+          className="w-full rounded-2xl bg-white px-4 py-2 text-black dark:bg-stone-700 dark:text-white"
         />
         <button
           type="submit"
-          className="transform rounded-2xl bg-white px-10 py-3 font-semibold text-white transition-transform duration-200 ease-in-out hover:scale-95 dark:text-black"
+          className="transform rounded-2xl bg-white px-10 py-3 font-semibold text-black transition-transform duration-200 ease-in-out hover:scale-95 dark:bg-stone-700 dark:text-stone-300"
         >
           Sök
         </button>

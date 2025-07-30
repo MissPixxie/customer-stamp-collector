@@ -27,6 +27,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200..800&family=Slabo+27px&display=swap"
           rel="stylesheet"
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
