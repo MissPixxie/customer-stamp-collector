@@ -5,12 +5,12 @@ import { MemberCard } from "./memberCard";
 import { useSelectedMember } from "../hooks/useSelectedMember";
 
 export function ListMembers() {
-  // const [listAllMembers] = api.member.listAllMembers.useSuspenseQuery();
-  // const { setSelectedMemberId } = useSelectedMember();
+  const [listAllMembers] = api.member.listAllMembers.useSuspenseQuery();
+  const { setSelectedMemberId } = useSelectedMember();
 
   return (
     <div className="flex flex-row gap-5">
-      {/* <div className="flex flex-col gap-x-2 gap-y-2.5 rounded-md bg-white">
+      <div className="flex flex-col gap-x-2 gap-y-2.5 rounded-md bg-white">
         {listAllMembers && listAllMembers.length > 0 ? (
           <div>
             <h2 className="text-center text-lg font-bold text-white dark:text-black">
@@ -30,7 +30,7 @@ export function ListMembers() {
         ) : (
           <p>You have no members yet.</p>
         )}
-      </div> */}
+      </div>
     </div>
   );
 }
