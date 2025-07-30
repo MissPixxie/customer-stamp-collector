@@ -89,7 +89,7 @@ export function MemberInFocus() {
             })}
           </ul>
         ) : (
-          <p>Inga stämpelkort hittades..</p>
+          <p className="md:pb-2 md:pl-2">Inga stämpelkort hittades..</p>
         )}
       </div>
     </div>
