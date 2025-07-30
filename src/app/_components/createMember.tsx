@@ -17,7 +17,7 @@ export function CreateMember() {
   const createMember = api.member.create.useMutation({
     onSuccess: async () => {
       await utils.member.invalidate();
-      setMembersNr("");
+      setMembersNr("Medlemsnummer");
       setMessage("Member has been added successfully!");
     },
     onError: (error) => {

@@ -16,9 +16,6 @@ export type MemberWithCardsAndStamps = Prisma.MemberGetPayload<{
   };
 }>;
 
-const shouldUseFallback =
-  process.env.NODE_ENV === "production" && process.env.SKIP_DB === "true";
-
 export const memberRouter = createTRPCRouter({
   getMember: publicProcedure
     .input(z.number().optional())
@@ -42,9 +39,6 @@ export const memberRouter = createTRPCRouter({
     }),
 
   listAllMembers: publicProcedure.query(async ({ ctx }) => {
-    if (shouldUseFallback) {
-      return [];
-    }
     const members = await ctx.db.member.findMany({
       include: {
         stampCards: {
