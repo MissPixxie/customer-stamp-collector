@@ -21,6 +21,8 @@ export const env = createEnv({
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
   },
+  //mysql://root:aXFMqtvcmKYudOAAiPCcKbsSdacreldA@mysql-nwgc.railway.internal:3306/railway
+  //mysql://root:aXFMqtvcmKYudOAAiPCcKbsSdacreldA@mysql-nwgc.railway.internal:3306/railwayn
 
   /**
    * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
