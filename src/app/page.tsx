@@ -7,6 +7,7 @@ import { MemberInFocus } from "./_components/memberInFocus";
 import CreateStampCardModal from "./_components/createStampCardModal";
 import StampCardInFocusModal from "./_components/stampCardInFocusModal";
 import { ModalProvider } from "./modalContext";
+import LeftMain from "./_components/leftMain";
 
 export default async function Home() {
   //void api.member.listAllMembers.prefetch();
@@ -22,10 +23,7 @@ export default async function Home() {
               Dogman
             </h1>
             <div className="flex w-full flex-row gap-12 bg-amber-50 px-4 py-16">
-              <div className="flex w-lg flex-col drop-shadow-xl/50">
-                <SearchBar />
-                <ListMembers />
-              </div>
+              <LeftMain />
               <div className="flex w-full max-w-lg flex-col gap-5 rounded-md drop-shadow-xl/50">
                 <MemberInFocus />
               </div>

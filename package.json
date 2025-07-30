@@ -19,8 +19,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "reset": "rimraf prisma/db.sqlite && npx prisma db push",
-    "test-db": "ts-node scripts/test-db-connection.js"
+    "reset": "rimraf prisma/db.sqlite && npx prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^6.12.0",
