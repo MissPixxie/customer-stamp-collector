@@ -51,6 +51,7 @@ model Stamp {
 enum StampCardType {
   Cat
   Dog
+  Paw
 }
 
 enum Role {

@@ -7,14 +7,13 @@ import { useEffect, useState } from "react";
 import { useSelectedStampCard } from "../hooks/useSelectedStampCard";
 import { StampCardType } from "@prisma/client";
 
-export default function StampCardInFocusModal() {
+export default function PawStampCardInFocusModal() {
   const utils = api.useUtils();
   const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const { activeModal, closeModal } = useModal();
   const { selectedMember } = useSelectedMember();
-  const { selectedStampCard, setSelectedStampCardId, refetch } =
-    useSelectedStampCard();
+  const { selectedStampCard, refetch } = useSelectedStampCard();
   const { Cat, Dog, Paw } = StampCardType;
   const [stampIndex, setStampIndex] = useState<number | null>(null);
   const [stamps, setStamps] = useState(
@@ -50,9 +49,6 @@ export default function StampCardInFocusModal() {
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
       setMessage("Stamp has been added successfully!");
-    },
-    onSettled: async () => {
-      setSelectedStampCardId(selectedStampCard?.id as number);
       await refetch();
       closeModal();
       setIsLoading(false);
@@ -162,9 +158,9 @@ export default function StampCardInFocusModal() {
                     className="mb-2 w-full rounded border px-3 py-1 dark:border-black dark:bg-stone-800"
                   />
                   <p className="text-sm text-stone-300">
+                    Rabatt i kr:{" "}
                     <span className="font-bold">
-                      {" "}
-                      {price} - {lowestPrice} ={difference.toFixed()} kr
+                      {difference.toFixed(2)} kr
                     </span>
                   </p>
                 </div>

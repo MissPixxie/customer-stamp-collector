@@ -17,8 +17,8 @@ export function MemberInFocus() {
   }
   return (
     <div>
-      <div className="ph-5 relative flex grow flex-col rounded-2xl bg-white pt-5 text-stone-200 md:w-90 dark:bg-stone-800">
-        <div className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25">
+      <div className="ph-5 relative flex flex-col rounded-2xl bg-white pt-5 text-stone-200 md:w-90 lg:w-fit dark:bg-stone-800">
+        <div className="m-2 flex flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 drop-shadow-xl/25 lg:max-w-lg">
           <div className="flex grow flex-row flex-wrap justify-between">
             <p className="truncat">Medlemsnummer: {selectedMember.membersNr}</p>
             <p>
@@ -51,6 +51,7 @@ export function MemberInFocus() {
               const typeTranslation = {
                 Dog: "Hund",
                 Cat: "Katt",
+                Paw: "Tass",
               };
 
               return (
@@ -61,7 +62,7 @@ export function MemberInFocus() {
                     console.log(selectedStampCard);
                     openModal("stampInFocus", selectedMember, stampcard.id);
                   }}
-                  className="m-2 flex max-w-lg flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 text-stone-200 drop-shadow-xl/25"
+                  className="m-2 flex flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 text-stone-200 drop-shadow-xl/25 lg:max-w-lg"
                 >
                   <div className="flex w-full justify-between text-white">
                     <p>{new Date(stampcard.createdAt).toLocaleDateString()}</p>
@@ -73,14 +74,14 @@ export function MemberInFocus() {
                       <div
                         key={stamp.id}
                         title={`Namn: ${stamp.brand}, Pris: ${stamp.price}`}
-                        className="h-9 w-9 rounded-full border border-white bg-yellow-300 shadow md:h-5 md:w-5"
+                        className="rounded-full border border-white bg-yellow-300 shadow md:h-5 md:w-5 lg:h-9 lg:w-9"
                       />
                     ))}
 
                     {[...Array(empty).keys()].map((idx) => (
                       <div
                         key={`empty-${idx}`}
-                        className="h-9 w-9 rounded-full border-2 border-white md:h-5 md:w-5"
+                        className="rounded-full border-2 border-white md:h-5 md:w-5 lg:h-9 lg:w-9"
                       />
                     ))}
                   </div>

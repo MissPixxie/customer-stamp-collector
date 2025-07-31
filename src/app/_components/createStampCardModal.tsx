@@ -11,7 +11,7 @@ export default function CreateStampCardModal() {
   const [message, setMessage] = useState<string>("");
   const { activeModal, closeModal } = useModal();
   const { selectedMember, refetch } = useSelectedMember();
-  const { Cat, Dog } = StampCardType;
+  const { Cat, Dog, Paw } = StampCardType;
   const [stampCardType, setStampCardType] = useState<StampCardType>(Cat);
 
   const createStampCard = api.stampCard.create.useMutation({
@@ -65,6 +65,15 @@ export default function CreateStampCardModal() {
             />
             <span></span> Hund
           </label>
+          <label className="custom-radio">
+            <input
+              type="radio"
+              name="typeOfAnimal"
+              value="paw"
+              onClick={() => setStampCardType(Paw)}
+            />
+            <span></span> Tass
+          </label>
         </form>
 
         <div className="mt-6 flex justify-end gap-2">
@@ -79,7 +88,7 @@ export default function CreateStampCardModal() {
             onClick={closeModal}
             className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
           >
-            Close
+            Stäng
           </button>
         </div>
       </div>

@@ -22,14 +22,14 @@ export default async function Home() {
             <h1 className="font-BioRhyme mb-17 text-9xl font-extrabold opacity-70 text-shadow-lg/30">
               Dogman
             </h1>
-            <div className="flex w-full flex-row gap-12 bg-white px-4 py-16 md:w-full md:flex-wrap md:gap-0 dark:bg-stone-900">
-              <div className="md:order-2 md:mr-2 md:w-95">
+            <div className="flex justify-center bg-white px-4 py-16 md:w-full md:flex-wrap md:gap-0 lg:w-full lg:flex-row lg:gap-12 dark:bg-stone-900">
+              <div className="md:order-2 md:mr-2 md:w-95 lg:order-1 lg:w-1/4">
                 <LeftMain />
               </div>
-              <div className="flex w-full max-w-lg flex-col gap-5 rounded-md drop-shadow-xl/50 md:order-3 md:w-90">
+              <div className="flex flex-col gap-5 rounded-md drop-shadow-xl/50 md:order-3 md:w-90 lg:order-2 lg:w-1/4">
                 <MemberInFocus />
               </div>
-              <div className="drop-shadow-xl/50 md:order-1 md:w-full">
+              <div className="drop-shadow-xl/50 md:order-1 md:w-full lg:order-3 lg:w-100">
                 <CreateMember />
               </div>
             </div>
