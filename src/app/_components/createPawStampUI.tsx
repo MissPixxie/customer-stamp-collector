@@ -1,13 +1,30 @@
-import { useState, type MouseEventHandler } from "react";
+import { useEffect, useState } from "react";
 import useCreateStamp from "../hooks/useCreateStamp";
+import { useSelectedStampCard } from "../hooks/useSelectedStampCard";
 
 type Props = {
   closeModal: () => void;
 };
 
 export default function CreatePawStampUI({ closeModal }: Props) {
-  const [pawStamps, setPawStamps] = useState(Array(8));
+  const [pawStamps, setPawStamps] = useState<
+    Array<{ stamped: boolean; createdAt?: string }>
+  >(Array(8).fill({ stamped: false }));
   const { submitPawStamp, isLoading, message } = useCreateStamp();
+  const { selectedStampCard, setSelectedStampCardId, refetch } =
+    useSelectedStampCard();
+
+  useEffect(() => {
+    const stamps = Array(8).fill({ stamped: false });
+
+    selectedStampCard?.pawStamps?.forEach((stamp, i) => {
+      if (i < 8) {
+        stamps[i] = { stamped: true, createdAt: stamp.createdAt };
+      }
+    });
+
+    setPawStamps(stamps);
+  }, [selectedStampCard]);
 
   return (
     <div
@@ -15,18 +32,37 @@ export default function CreatePawStampUI({ closeModal }: Props) {
       onClick={(e) => e.stopPropagation()}
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {[...Array(8)].map((_, index) => {
-          const pawStamp = pawStamps[index];
+        {pawStamps.map((stamp, index) => {
+          const isStamped = stamp.stamped;
 
           return (
             <div
               key={index}
-              className="cursor-pointer rounded-md border border-gray-300 p-4 shadow-sm dark:border-black dark:bg-stone-900"
-              onClick={submitPawStamp}
+              className={`flex h-20 w-20 items-center justify-center rounded-full border shadow-sm transition-colors ${
+                isStamped
+                  ? "bg-green-500 text-white"
+                  : "border-gray-300 bg-white dark:border-black dark:bg-stone-900"
+              }`}
+              onClick={() => {
+                if (stamp.stamped) return;
+
+                const updated = [...pawStamps];
+                updated[index] = {
+                  stamped: true,
+                  createdAt: new Date().toISOString(),
+                };
+                setPawStamps(updated);
+                submitPawStamp();
+              }}
             >
-              <p className="mb-2 font-semibold dark:text-stone-300">
-                Stämpel {index + 1}
-              </p>
+              {stamp.stamped && (
+                <>
+                  <span className="text-xl">✅</span>
+                  <span className="mt-1 text-[10px]">
+                    {new Date(stamp.createdAt!).toLocaleDateString("sv-SE")}
+                  </span>
+                </>
+              )}
             </div>
           );
         })}

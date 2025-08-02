@@ -67,6 +67,7 @@ export const stampCardRouter = createTRPCRouter({
         },
         include: {
           stamps: true,
+          pawStamps: true,
         },
       });
       return stampCard;

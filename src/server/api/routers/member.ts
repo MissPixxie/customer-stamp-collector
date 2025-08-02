@@ -47,6 +47,7 @@ export const memberRouter = createTRPCRouter({
           },
         },
       },
+      orderBy: { createdAt: "desc" },
     });
     console.log(JSON.stringify(members, null, 2));
     return members;
