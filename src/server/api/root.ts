@@ -6,6 +6,7 @@ import { memberRouter } from "./routers/member";
 import { stampCardRouter } from "./routers/stampCard";
 import { stampRouter } from "./routers/stamp";
 import { authRouter } from "./routers/auth";
+import { pawStampRouter } from "./routers/pawStamp";
 
 /**
  * This is the primary router for your server.
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
   member: memberRouter,
   stampCard: stampCardRouter,
   stamp: stampRouter,
+  pawStamp: pawStampRouter,
   auth: authRouter,
 });
 

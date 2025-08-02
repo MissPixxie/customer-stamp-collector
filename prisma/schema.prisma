@@ -32,6 +32,7 @@ model StampCard {
   updatedAt DateTime      @updatedAt
   stamps    Stamp[]
   member    Member        @relation(fields: [membersNr], references: [id])
+  pawStamps PawStamp[]
 
   @@index([membersNr], map: "StampCard_membersNr_fkey")
 }
@@ -46,6 +47,15 @@ model Stamp {
   stampCard   StampCard @relation(fields: [stampCardid], references: [id])
 
   @@index([stampCardid], map: "Stamp_stampCardid_fkey")
+}
+
+model PawStamp {
+  id          Int       @id @default(autoincrement())
+  stampCardid Int
+  createdAt   DateTime  @default(now())
+  stampCard   StampCard @relation(fields: [stampCardid], references: [id])
+
+  @@index([stampCardid], map: "PawStamp_stampCardid_fkey")
 }
 
 enum StampCardType {

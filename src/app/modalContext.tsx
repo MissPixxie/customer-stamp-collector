@@ -3,7 +3,7 @@
 import { createContext, useState, useContext, type ReactNode } from "react";
 import type { Member } from "@prisma/client";
 
-type ModalType = "createStamp" | "stampInFocus" | null;
+type ModalType = "createStamp" | "pawStampInFocus" | "stampInFocus" | null;
 
 type ModalContextType = {
   openModal: (modalType: ModalType, member?: Member, cardId?: number) => void;
