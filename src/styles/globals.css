@@ -66,3 +66,11 @@ input[type="radio"] {
   line-height: 20px;
   font-family: "Arial", sans-serif;
 }
+
+.custom-stamp {
+    content: "🐾";
+      position: absolute;
+        color: #4CAF50;
+        font-size: 36px;
+  font-family: Arial, Helvetica, sans-serif;
+}

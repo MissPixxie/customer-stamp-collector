@@ -27,10 +27,7 @@ export default function CreatePawStampUI({ closeModal }: Props) {
   }, [selectedStampCard]);
 
   return (
-    <div
-      className="w-full max-w-sm rounded-lg bg-white p-6 text-black shadow-lg dark:bg-stone-800 dark:text-white"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div onClick={(e) => e.stopPropagation()}>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {pawStamps.map((stamp, index) => {
           const isStamped = stamp.stamped;

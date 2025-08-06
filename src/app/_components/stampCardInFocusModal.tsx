@@ -63,13 +63,15 @@ export default function StampCardInFocusModal() {
             </label>
           </form>
         </div>
-        {selectedStampCard?.type === Paw && (
-          <CreatePawStampUI closeModal={closeModal} />
-        )}
-        {(selectedStampCard?.type === Dog ||
-          selectedStampCard?.type === Cat) && (
-          <CreateFoodStampUI closeModal={closeModal} />
-        )}
+        <div className="m-auto">
+          {selectedStampCard?.type === Paw && (
+            <CreatePawStampUI closeModal={closeModal} />
+          )}
+          {(selectedStampCard?.type === Dog ||
+            selectedStampCard?.type === Cat) && (
+            <CreateFoodStampUI closeModal={closeModal} />
+          )}
+        </div>
       </div>
     </div>
   );

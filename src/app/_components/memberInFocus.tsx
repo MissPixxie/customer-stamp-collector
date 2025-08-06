@@ -74,10 +74,19 @@ export function MemberInFocus() {
                       <div
                         key={stamp.id}
                         title={`Namn: ${stamp.brand}, Pris: ${stamp.price}`}
-                        className="rounded-full border border-white bg-yellow-300 shadow md:h-5 md:w-5 lg:h-9 lg:w-9"
-                      />
+                        className="flex items-center justify-center rounded-full border border-white bg-white shadow md:h-5 md:w-5 lg:h-9 lg:w-9"
+                      >
+                        <p>🐾</p>
+                      </div>
                     ))}
-
+                    {stampcard.pawStamps.map((pawStamp) => (
+                      <div
+                        key={pawStamp.id}
+                        className="flex items-center justify-center rounded-full border border-white bg-white shadow md:h-5 md:w-5 lg:h-9 lg:w-9"
+                      >
+                        <p>🐾</p>
+                      </div>
+                    ))}
                     {[...Array(empty).keys()].map((idx) => (
                       <div
                         key={`empty-${idx}`}

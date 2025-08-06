@@ -30,6 +30,7 @@ export const memberRouter = createTRPCRouter({
           stampCards: {
             include: {
               stamps: true,
+              pawStamps: true,
             },
           },
         },
@@ -44,6 +45,7 @@ export const memberRouter = createTRPCRouter({
         stampCards: {
           include: {
             stamps: true,
+            pawStamps: true,
           },
         },
       },
