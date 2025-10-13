@@ -22,6 +22,7 @@ export function ListMembers() {
                 key={member.id}
                 onClick={() => {
                   setSelectedMemberId(member.membersNr);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               >
                 <MemberCard key={member.id} member={member} />
