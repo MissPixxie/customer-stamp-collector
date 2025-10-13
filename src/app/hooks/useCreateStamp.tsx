@@ -15,12 +15,7 @@ export default function useCreateStamp() {
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
       setMessage("Stamp has been added successfully!");
-    },
-    onSettled: async () => {
-      setSelectedStampCardId(selectedStampCard?.id as number);
-      await refetch();
       closeModal();
-      setIsLoading(false);
     },
     onError: (error) => {
       setMessage(`Error while adding stamp: ${error.message}`);
@@ -32,12 +27,7 @@ export default function useCreateStamp() {
     onSuccess: async () => {
       await utils.stampCard.getStampCard.invalidate();
       setMessage("Stamp has been added successfully!");
-    },
-    onSettled: async () => {
-      setSelectedStampCardId(selectedStampCard?.id as number);
-      await refetch();
       closeModal();
-      setIsLoading(false);
     },
     onError: (error) => {
       setMessage(`Error while adding stamp: ${error.message}`);
