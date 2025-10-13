@@ -5,7 +5,7 @@ import {
 import { memberRouter } from "./routers/member";
 import { stampCardRouter } from "./routers/stampCard";
 import { stampRouter } from "./routers/stamp";
-import { authRouter } from "./routers/auth";
+//import { authRouter } from "./routers/auth";
 import { pawStampRouter } from "./routers/pawStamp";
 
 /**
@@ -18,7 +18,7 @@ export const appRouter = createTRPCRouter({
   stampCard: stampCardRouter,
   stamp: stampRouter,
   pawStamp: pawStampRouter,
-  auth: authRouter,
+  // auth: authRouter,
 });
 
 // export type definition of API
