@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { api, HydrateClient } from "stampCollector/trpc/server";
 import { CreateMember } from "./_components/createMember";
 import SearchBar from "./_components/search";
