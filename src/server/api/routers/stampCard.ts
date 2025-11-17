@@ -74,13 +74,23 @@ export const stampCardRouter = createTRPCRouter({
       return stampCard;
     }),
 
-  //   delete: publicProcedure
-  //     .input(z.object({ email: z.string().min(1) }))
-  //     .mutation(async ({ ctx, input }) => {
-  //       return ctx.db.customer.delete({
-  //         data: {
-  //           email: input.email,
-  //         },
-  //       });
-  //     }),
+  delete: publicProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
+    const stampCard = await ctx.db.stampCard.findUnique({
+      where: {
+        id: input,
+      },
+    });
+
+    if (!stampCard) {
+      throw new Error("Could not find stampcard");
+    }
+
+    await ctx.db.stampCard.delete({
+      where: {
+        id: input,
+      },
+    });
+
+    return { success: true };
+  }),
 });

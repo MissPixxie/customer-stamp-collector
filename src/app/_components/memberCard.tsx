@@ -2,6 +2,7 @@
 
 import { api } from "stampCollector/trpc/react";
 import type { MemberWithCardsAndStamps } from "stampCollector/server/api/routers/member";
+import { DeleteMember } from "./deleteMember";
 
 export function MemberCard({ member }: { member: MemberWithCardsAndStamps }) {
   const { isLoading, isError } = api.stampCard.getStampCard.useQuery(

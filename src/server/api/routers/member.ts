@@ -5,6 +5,7 @@ import {
 } from "stampCollector/server/api/trpc";
 
 import type { Prisma } from "@prisma/client";
+import { error } from "console";
 
 export type MemberWithCardsAndStamps = Prisma.MemberGetPayload<{
   include: {
@@ -71,13 +72,35 @@ export const memberRouter = createTRPCRouter({
       });
     }),
 
-  //   delete: publicProcedure
-  //     .input(z.object({ email: z.string().min(1) }))
-  //     .mutation(async ({ ctx, input }) => {
-  //       return ctx.db.customer.delete({
-  //         data: {
-  //           email: input.email,
-  //         },
-  //       });
-  //     }),
+  update: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
+    if (!input) return null;
+
+    const member = await ctx.db.member.findUnique({
+      where: {
+        membersNr: input,
+      },
+    });
+
+    return member;
+  }),
+
+  delete: publicProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
+    const member = await ctx.db.member.findUnique({
+      where: {
+        membersNr: input,
+      },
+    });
+
+    if (!member) {
+      throw new Error("Could not find member");
+    }
+
+    await ctx.db.member.delete({
+      where: {
+        membersNr: input,
+      },
+    });
+
+    return { success: true };
+  }),
 });

@@ -18,7 +18,12 @@ export default function StampCardInFocusModal() {
     useSelectedStampCard();
   const { Cat, Dog, Paw } = StampCardType;
 
-  if (activeModal !== "stampInFocus" || selectedMember === null) return null;
+  if (
+    activeModal !== "stampInFocus" ||
+    selectedMember === null ||
+    selectedStampCard === null
+  )
+    return null;
 
   return (
     <div

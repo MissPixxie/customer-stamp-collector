@@ -13,20 +13,23 @@ export default function CreateStampCardModal() {
   const { selectedMember, refetch } = useSelectedMember();
   const { Cat, Dog, Paw } = StampCardType;
   const [stampCardType, setStampCardType] = useState<StampCardType>(Cat);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const createStampCard = api.stampCard.create.useMutation({
     onSuccess: async () => {
       await utils.member.listAllMembers.invalidate();
       await utils.member.getMember.invalidate(selectedMember?.membersNr);
       await refetch();
+      setIsSubmitting(false);
       closeModal();
     },
     onError: (error) => {
       setMessage(`Fel: ${error.message}`);
     },
   });
-  console.log(message);
+
   const handleSubmit = (e: React.FormEvent) => {
+    setIsSubmitting(true);
     e.preventDefault();
     if (selectedMember) {
       const membersNr = selectedMember.id;
@@ -80,6 +83,7 @@ export default function CreateStampCardModal() {
           <button
             type="submit"
             onClick={handleSubmit}
+            disabled={isSubmitting}
             className="rounded-lg bg-green-500 px-4 py-2 text-white hover:bg-green-600"
           >
             Skapa nytt

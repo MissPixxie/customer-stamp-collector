@@ -3,6 +3,7 @@
 import { api } from "stampCollector/trpc/react";
 import { MemberCard } from "./memberCard";
 import { useSelectedMember } from "../hooks/useSelectedMember";
+import { DeleteMember } from "./deleteMember";
 
 export function ListMembers() {
   const [listAllMembers] = api.member.listAllMembers.useSuspenseQuery();
@@ -25,6 +26,7 @@ export function ListMembers() {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               >
+                <DeleteMember membersNr={member.membersNr} />
                 <MemberCard key={member.id} member={member} />
               </div>
             ))}

@@ -3,6 +3,7 @@
 import { useSelectedMember } from "../hooks/useSelectedMember";
 import { useModal } from "../modalContext";
 import { useSelectedStampCard } from "../hooks/useSelectedStampCard";
+import { DeleteStampCard } from "./deleteStampCard";
 
 export function MemberInFocus() {
   const { selectedMember } = useSelectedMember();
@@ -57,12 +58,20 @@ export function MemberInFocus() {
               return (
                 <div
                   key={stampcard.id}
-                  onClick={() => {
-                    setSelectedStampCardId(stampcard.id);
-                    console.log(selectedStampCard);
-                    openModal("stampInFocus", selectedMember, stampcard.id);
+                  onClick={(event) => {
+                    if (
+                      event.target instanceof HTMLElement &&
+                      event.target.className.includes("delete-button")
+                    ) {
+                      event.preventDefault();
+                      setSelectedStampCardId(null);
+                    } else {
+                      setSelectedStampCardId(stampcard.id);
+                      console.log(selectedStampCard);
+                      openModal("stampInFocus", selectedMember, stampcard.id);
+                    }
                   }}
-                  className="m-2 flex flex-wrap rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 text-stone-200 drop-shadow-xl/25 lg:max-w-lg"
+                  className="m-2 flex flex-col flex-wrap gap-1 rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-900 p-3 text-stone-200 drop-shadow-xl/25 lg:max-w-lg"
                 >
                   <div className="flex w-full justify-between text-white">
                     <p>{new Date(stampcard.createdAt).toLocaleDateString()}</p>
@@ -93,6 +102,9 @@ export function MemberInFocus() {
                         className="rounded-full border-2 border-white md:h-5 md:w-5 lg:h-9 lg:w-9"
                       />
                     ))}
+                  </div>
+                  <div className="delete-button w-5 place-self-end">
+                    <DeleteStampCard id={stampcard.id} />
                   </div>
                 </div>
               );

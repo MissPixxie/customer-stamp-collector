@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DEV_DATABASE_URL")
 }
 
 model User {
@@ -31,7 +31,7 @@ model StampCard {
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
   stamps    Stamp[]
-  member    Member        @relation(fields: [membersNr], references: [id])
+  member    Member        @relation(fields: [membersNr], references: [id], onDelete: Cascade)
   pawStamps PawStamp[]
 
   @@index([membersNr], map: "StampCard_membersNr_fkey")
@@ -44,7 +44,7 @@ model Stamp {
   price       String
   stampCardid Int
   createdAt   DateTime  @default(now())
-  stampCard   StampCard @relation(fields: [stampCardid], references: [id])
+  stampCard   StampCard @relation(fields: [stampCardid], references: [id], onDelete: Cascade)
 
   @@index([stampCardid], map: "Stamp_stampCardid_fkey")
 }
@@ -53,7 +53,7 @@ model PawStamp {
   id          Int       @id @default(autoincrement())
   stampCardid Int
   createdAt   DateTime  @default(now())
-  stampCard   StampCard @relation(fields: [stampCardid], references: [id])
+  stampCard   StampCard @relation(fields: [stampCardid], references: [id], onDelete: Cascade)
 
   @@index([stampCardid], map: "PawStamp_stampCardid_fkey")
 }
